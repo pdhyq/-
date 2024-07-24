@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="https://blog.csdn.net/weixin_44045328/article/details/107179755">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="report" content="{&quot;pid&quot;: &quot;blog&quot;, &quot;spm&quot;:&quot;1001.2101&quot;}">
+  <meta name="referrer" content="always">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <link rel="alternate" media="handheld" href="#">
+  <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+  <meta name="applicable-device" content="pc">
+  <link href="http://toolman.ddnsfree.com:8585/csdnimg/g/static/logo/favicon32.ico" rel="shortcut icon" type="image/x-icon">
+  <title>HTTPS详细解析、TLS四次握手-CSDN博客</title>
+  <meta name="keywords" content="tls四次握手">
+  <meta name="csdn-baidu-search" content="{&quot;autorun&quot;:true,&quot;install&quot;:true,&quot;keyword&quot;:&quot;tls四次握手&quot;}">
+  <meta name="description" content="文章浏览阅读6.7k次，点赞4次，收藏33次。前言在互联网刚诞生的时候，Honeywell Information System公司便提出了OSI网络模型，并最终推广使用。HTTP协议作为OSI模型的应用层中不可或缺的一个协议，凭其优秀的性能得到了广泛的应用，但是随后人们发现了一个重大漏洞，HTTP协议使用了明文传输数据，这使得任何人只要拦截下数据包就可以直接查看交互信息甚至可以随意修改交互信息，这是非常危险的。这份危险刺激着密码学的发展，随着对称加密算法、公私钥加密算法和消息摘要算法相继提出和发展完善，信息的保密性、完整性和可用性得到了极大的保_tls四次握手">
+  <link rel="stylesheet" type="text/css" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/css/detail_enter-8904b3315a.min.css">
+  <link rel="stylesheet" type="text/css" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/themesSkin/skin-number/skin-number-2c93789924.min.css">
+  <meta name="toolbar" content="{&quot;type&quot;:&quot;0&quot;,&quot;fixModel&quot;:&quot;1&quot;}">
+  <link rel="stylesheet" type="text/css" href="http://toolman.ddnsfree.com:8585/csdnimg/public/sandalstrap/1.4/css/sandalstrap.min.css">
+  <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+ </head>
+ <body class="nodata " style="">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/g/lib/swiper/6.0.4/css/swiper.css"><div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;"><div class="container clearfix container-concision" id="mainBox">
+    <main>
+     <div class="blog-content-box"><div class="article-header-box"><div class="article-header"><div class="article-title-box">
+         <h1 class="title-article" id="articleContentId">HTTPS详细解析、TLS四次握手</h1></div><div class="article-info-box"><div class="up-time">
+          最新推荐文章于&nbsp;2021-09-20 23:17:47&nbsp;发布</div><div class="article-bar-top"><img class="article-type-img" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/original.png" alt=""><div class="bar-content"><img class="article-vip-img-new" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/identityVipNew.png" alt=""> <a class="follow-nickName " href="https://blog.csdn.net/weixin_44045328" target="_blank" rel="noopener" title="咸鱼不翻翻翻身">咸鱼不翻翻翻身</a> <img class="article-time-img article-heard-img" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/newCurrentTime2.png" alt=""> <span class="time blog-postTime" data-time="2020-07-07 14:26:34">最新推荐文章于&nbsp;2021-09-20 23:17:47&nbsp;发布</span>
+           <div class="read-count-box"><img class="article-read-img article-heard-img" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/articleReadEyes2.png" alt=""> <span class="read-count">阅读量6.7k</span> <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/tobarCollect2.png" alt=""> <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt=""> <span class="name">收藏</span> <span class="get-collection"> 33 </span> </a>
+            <div class="read-count-box is-like"><img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/newHeart2023Active.png" alt=""> <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/newHeart2023Black.png" alt=""> <span class="read-count" id="blog-digg-num">点赞数 4 </span></div></div></div></div><div class="blog-tags-box"><div class="tags-box artic-tag-box"><span class="label">文章标签：</span> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;https&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;https\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=https&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">https</a> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;SSL TLS&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;SSL TLS\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=SSL+TLS&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">SSL TLS</a> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;TLS&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;TLS\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=TLS&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">TLS</a></div></div><div class="slide-content-box"><div class="article-copyright"><div class="creativecommons">
+            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</div><div class="article-source-link">
+            本文链接：<a href="https://blog.csdn.net/weixin_44045328/article/details/107179755" target="_blank">https://blog.csdn.net/weixin_44045328/article/details/107179755</a></div></div></div><div class="operating"><a class="href-article-edit slide-toggle">版权</a></div></div></div></div><div id="blogHuaweiyunAdvert"></div>
+      <article class="baidu_pl"><div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-044f2cf1dc.css"><div id="content_views" class="markdown_views prism-atom-one-light">
+         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+         </svg>
+         <h2><a id="_0"></a>前言</h2>
+         <p>在互联网刚诞生的时候，Honeywell Information System公司便提出了OSI网络模型，并最终推广使用。<br> HTTP协议作为OSI模型的应用层中不可或缺的一个协议，凭其优秀的性能得到了广泛的应用，但是随后人们发现了一个重大漏洞，HTTP协议使用了明文传输数据，这使得任何人只要拦截下数据包就可以直接查看交互信息甚至可以随意修改交互信息，这是非常危险的。<br> 这份危险刺激着密码学的发展，随着对称加密算法、公私钥加密算法和消息摘要算法相继提出和发展完善，信息的保密性、完整性和可用性得到了极大的保障，于是人们在密码学的基础上设计了SSL协议，与HTTP协议配合使用，并统称为HTTPS。HTTPS弥补HTTP明文传输的缺点，为通讯信息进行加密等操作，以保证网络通讯的安全。在对SSL协议完善的过程中，由于历史原因，SSL协议从SSL3.0之后改名为TLS，但是SSL依旧有些服务器在用，因此习惯上称之为SSL/TLS协议。</p>
+         <h2><a id="SSLTLS_6"></a>一、SSL/TLS协议</h2>
+         <p><img alt="图1 SSL/TLS协议在OSI五层模型中的位置" src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/2020070713434159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA0NTMyOA==,size_16,color_FFFFFF,t_70"><br> SSL（Secure Socket Layer，安全套接字层）协议是位于OSI七层模型中的表示层（在五层模型中属于应用层）的可靠的面向连接的协议，SSL通过互相认证、使用摘要算法确保完整性和使用加密算法确保私密性，使客户端和服务器之间实现了安全的通讯。该协议主要由SSL记录协议和SSL握手协议组成。目前SSL的最新版本是1996年发布的SSL3.0，虽然该协议在2015年被RFC 7568列为不安全协议而不建议使用，但是有部分服务器仍在使用。</p>
+         <p>TLS（Transport Layer Security，传输层安全）协议是在SSL3.0的基础上改进的协议，是SSL3.0的后续版本，并在1999年发布了第一个版本TLS1.0。作为SSL的升级版，TLS协议与SSL协议具有相同的目的：解决浏览器与服务器通讯中的认证、保密性和完整性的安全问题。TLS协议也可以分为两个部分：记录协议（Record Protocol）和握手协议（Handshake Protocol）。目前TLS的最新版本是2018年发布的TLS1.3，但是目前使用最广泛的还是2008年发布的TLS1.2<br> <img alt="图2 HTTPS加密通讯过程" src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/2020070713445510.png"><br> 一次完整的HTTPS加密通讯的过程如下：</p>
+         <p>发送端：<br> ① 利用商定的随机数和摘要算法计算明文的MAC（Message Authentication Code，消息认证码），常见的消息摘要算法有MD5、SHA1、SHA256等。</p>
+         <p>② 将明文用商定的加密算法进行加密，得出密文。目前主流的加密方法有两种：一种是利用商定的对称密钥进行对称加密，对称加密算法在安全性上不如非对称加密算法，但是对称加密算法的计算效率高，因此一般用于传输机密性等级不高且量大的内容，常见的对称加密算法有RC4、DES、3DES、AES等；另一种是使用对方的公钥进行非对称加密，与对称机密算法相反，该算法安全性高但是计算效率低，因此一般用于加密机密性等级高的内容，常见的非对称加密算法有RSA、Elgamal、椭圆曲线加密算法等。</p>
+         <p>③ 用私钥将MAC码进行加密，得到了一个数字签名，使得消息不可否认。</p>
+         <p>④ 将密文和数字签名进行拼接，然后发送给接收端。</p>
+         <p>接收端：<br> ⑤ 拆分消息得到密文和数字签名，利用商定的加密算法及其对应的密钥进行解密，得到明文。</p>
+         <p>⑥ 用发送端的公钥对数字签名进行解密，得到MAC码。</p>
+         <p>⑦ 利用商定的随机数和摘要算法计算明文的MAC码，并与收到的MAC进行比较，若相等则说明得到了正确的明文，若两个MAC值不等，则重新请求数据。</p>
+         <h2><a id="TLS_30"></a>二、TLS握手协议和记录协议</h2>
+         <h4><a id="21__32"></a>2.1 握手协议</h4>
+         <p>以TLS1.2为例，以下为TLS1.2四次握手的详细流程（括号内为可选内容）：<br> <img alt="图3 TLS1.2握手过程" src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/20200707135246507.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA0NTMyOA==,size_16,color_FFFFFF,t_70"><br> 第一次握手：</p>
+         <p>四次握手的第一次握手是客户端向服务器发送Client Hello消息，消息以明文的形式传输，里面包括客户端支持的协议版本、加密套件、压缩算法、客户端生成的一个随机数R1、扩展字段等。其中加密套件是四个功能的组合，即：认证算法（Au）、密钥交换算法（KeyExchange）、对称加密算法（Enc）和信息摘要算法，随机数R1则会在后面的密钥生成中使用到。</p>
+         <p>第二次握手：</p>
+         <p>① 应对客户端发来的Client Hello，服务器将发送Server Hello消息进行响应，该消息以明文的形式传输，相应消息包括确认使用的协议版本、由服务器生成的随机数R2，确认使用的加密套件、确认使用的压缩方法。</p>
+         <p>② 在发完Server Hello消息后，服务器会马上将自己的Certificate（公钥证书）发送给客户端。</p>
+         <p>③ Server Key Exchange并非必需选项，只有在选用了DH算法的情况下，服务器需要将DH参数发送给客户端，若选择了RSA算法则不需要发送Server Key Exchange。</p>
+         <p>④ Certificate Request也并非必须选项，在对于安全性要求较高的场景中，服务器可要对客户端的身份进行认证，因此发起了对客户端公钥证书的请求，一般情况下浏览器都会内置一对独一无二的公私钥。</p>
+         <p>⑤ 由于第二次握手中包含一些可选选项，因此需要服务器发送一个Server Hello Done的消息，用来通知客户端Server Hello过程结束。</p>
+         <p>在客户端收到Server Hello Done之后并没有马上进行第三次握手，而是先对服务器传来的证书进行验证，一般会验证证书是否在有效期内，随后根据CRL或者OCSP查询证书是否有效，最后根据证书链从根CA开始验证直到网站证书，以确保证书的真实性。在这个过程中若出现了验证不通过的结果，则抛出相应的错误；若验证通过，就再生成一个随机数Pre-master，并用服务器公钥进行加密，生成PreMaster Key。</p>
+         <p>第三次握手：</p>
+         <p>① Client Key Exchange就是客户端将PreMaster Key发送给服务器，服务器则会用自己的私钥解密得出Pre-master。到这里客户端和服务器都拥有了三个随机数R1、R2和Pre-master，两边再用相同的算法和这三个随机数生成一个密钥，用于握手结束后传输数据的对称加密。</p>
+         <p>② Change Cipher Spec是客户端向服务器通知，后面发送的消息都会使用协商出来的密钥进行加密。</p>
+         <p>③ Encrypted Handshake Message是客户端向服务发送握手数据加密信息，该信息是客户端将前面的握手消息利用协商好的摘要算法生成摘要，再用协商好的密钥对摘要进行加密而的出来的，最后将加密信息发送给服务器，这是客户端发出的第一条加密信息。而服务器也会用协商好的密钥进行解密，若能成功解密则说明协商出来的密钥是一致的。</p>
+         <p>④ Certificate是在第二次握手的第4步有进行的情况下，即服务器有向客户端请求证书的情况才会有的，这一步是客户端向服务器发送客户端的证书，而服务器收到证书后也会对证书进行相同的验证。</p>
+         <p>第四次握手：</p>
+         <p>① Change Cipher Spec是服务器向客户端通知，后面发送的消息都会使用协商出来的密钥进行加密。</p>
+         <p>② Encrypted Handshake Message与第三次握手类似，是服务器发给客户端的用来确定协商的密钥是一致的，也是一条Server Finish消息。</p>
+         <p>至此TLS四次握手也就完成了，双方已经协商好使用的加密套件和对称密钥，接下来的交互数据都将经过加密后再使用TCP进行传输。</p>
+         <p>可以看出，TLS四次握手的过程是相对复杂的，要消耗一定的资源，若每次建立HTTPS连接都要进行TLS四次握手的话将会消耗较多的资源，导致效率较低。为了提高建立HTTPS连接的速度，TLS协议设置了两种绘画缓存机制：session ID和session ticket。其中session ID是协议中标准字段，所以基本所有服务器都支持，session ID和协商的通讯信息会保存在服务器端；而session ticket是一个扩展字段，需要服务器和客户端都支持，服务器会将协商的通讯信息加密后发送给客户端保存，密钥只有服务器直到，这就占用了较少的服务器资源。<br> <img alt="图4 包含Session ID的握手过程" src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/20200707135342458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA0NTMyOA==,size_16,color_FFFFFF,t_70"><br> 这里的Client Hello多了Session ID（或Session Ticket）参数。且客户端在发送完最后一个握手数据包后就直接开始向服务器发送应用数据。</p>
+         <h4><a id="22__76"></a>2.2 记录协议</h4>
+         <p><img alt="图5 TLS记录协议" src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/20200707135456492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA0NTMyOA==,size_16,color_FFFFFF,t_70"><br> TLS记录协议是在客户端和服务器发送交互消息的时候使用的一个协议。根据RFC5246的规定，TLS记录协议是一个分层协议，主要负责消息压缩、加密和数据的认证。</p>
+         <p>对于一条交互消息，首先会将消息分割成若干个片段，每个片段不多于2^14字节（即16kb），然后对每一个片段分别使用协商好的压缩算法进行压缩，得到对应的压缩片段。接下来计算每个压缩片段的MAC值，并MAC值中加入序号后连接在压缩片段后面。连接完成后则用协商好的对称加密算法和密钥进行加密得到密文。最后在密文前面加上由数据类型、协议版本号和压缩后长度组成的报头，组成最终的报文数据，并将报文数据传送给TCP层进行打包发送。</p>
+         <h2><a id="SSLTLS_82"></a>三、SSL/TLS的安全威胁</h2>
+         <p>看似强大的SSL/TLS协议其实也并非绝对的安全，自从SSL1.0开始，关于SSL协议的安全性研究也随之开始并持续到现在。在最近7年的四大国际会议中，关于TLS协议安全问题的研究论文就有差不多50篇，这些论文介绍了诸多可以被利用的漏洞，这些漏洞大致包含以下三类：</p>
+         <p>（1）SSL/TLS协议设计不足：这类漏洞源自于协议本身就存在的问题。例如在对消息进行分块加密阶段，往往在最后一个块是一个不完整的块而需要进行填充，使其成为一个完整的块才能进行加密，但是协议并未对填充内容进行检验，由此产生了Lucky Thirteen攻击、POODLE攻击、Bleichenbacher攻击、DROWN攻击等。并且协议至今仍然支持一些已经被证实不安全的算法，诸如RC4、3DES和MD5等。</p>
+         <p>（2）SSL/TLS协议实现漏洞：这类漏洞并非源自于协议，而是由人为的错误产生的，具体来讲就是人们在配置SSL/TLS的时候未能严格按照协议的要求来配置，由此便产生了漏洞。常见的这类漏洞有三次握手攻击、SLOTH攻击、降级攻击、Heartbleed、Freak攻击等</p>
+         <p>（3）证书相关问题：这类漏洞一般来自于SSL/TLS所依赖的PKI体系。最常见的攻击方式就是伪造证书进而实现中间人攻击，再者，X509证书基于其解释过程复杂在实际应用中也出现过一些问题。</p></div>
+        <link href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/markdown_views-f23dff6052.css" rel="stylesheet">
+        <link href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/style-c216769e99.css" rel="stylesheet"></div>
+      </article></div>
+    </main></div><div class="recommend-right align-items-stretch clearfix" id="rightAside" data-type="recommend"></div></div>
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+ </body>
+</html>

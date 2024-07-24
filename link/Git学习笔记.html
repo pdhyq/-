@@ -1,0 +1,2031 @@
+<!doctype html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="https://blog.csdn.net/u011863024/article/details/118562748">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="report" content="{&quot;pid&quot;: &quot;blog&quot;, &quot;spm&quot;:&quot;1001.2101&quot;}">
+  <meta name="referrer" content="always">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <link rel="alternate" media="handheld" href="#">
+  <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+  <meta name="applicable-device" content="pc">
+  <link href="http://toolman.ddnsfree.com:8585/csdnimg/g/static/logo/favicon32.ico" rel="shortcut icon" type="image/x-icon">
+  <title>Git学习笔记_git学习笔记 巨轮-CSDN博客</title>
+  <meta name="keywords" content="git学习笔记 巨轮">
+  <meta name="csdn-baidu-search" content="{&quot;autorun&quot;:true,&quot;install&quot;:true,&quot;keyword&quot;:&quot;git学习笔记 巨轮&quot;}">
+  <meta name="description" content="文章浏览阅读1.2w次，点赞77次，收藏420次。    Git 00_Git常用命令01_课程介绍02_官网介绍03_概述_版本控制介绍04_概述_分布式版本控制VS集中式版本控制05_概述_发展历史06_概述_工作机制和代码托管中心07_安装_安装和客户端的使用08_命令_设置用户签名09_命令_初始化本地库10_命令_查看本地库状态11_命令_添加暂存区12_命令_提交本地库13_命令_修改文件14_命令_版本穿梭15_..._git学习笔记 巨轮">
+  <link rel="stylesheet" type="text/css" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/css/detail_enter-78e97c8075.min.css">
+  <link rel="stylesheet" type="text/css" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/themesSkin/skin-blackboard/skin-blackboard-3adcc2c475.min.css">
+  <meta name="toolbar" content="{&quot;type&quot;:&quot;0&quot;,&quot;fixModel&quot;:&quot;1&quot;}">
+  <link rel="stylesheet" type="text/css" href="http://toolman.ddnsfree.com:8585/csdnimg/public/sandalstrap/1.4/css/sandalstrap.min.css">
+  <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+ </head>
+ <body class="nodata " style="">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/g/lib/swiper/6.0.4/css/swiper.css"><div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;"><div class="container clearfix container-concision" id="mainBox">
+    <main>
+     <div class="blog-content-box"><div class="article-header-box"><div class="article-header"><div class="article-title-box">
+         <h1 class="title-article" id="articleContentId">Git学习笔记</h1></div><div class="article-info-box"><div class="article-bar-top"><img class="article-type-img" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/original.png" alt=""><div class="bar-content"><span class="c-gray">置顶</span> <img class="article-vip-img-new" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/identityVipNew.png" alt=""> <a class="follow-nickName " href="https://blog.csdn.net/u011863024" target="_blank" rel="noopener" title="巨輪">巨輪</a> <img class="article-time-img article-heard-img" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/newUpTime2.png" alt=""> <span class="time">已于&nbsp;2022-05-09 07:12:48&nbsp;修改</span>
+           <div class="read-count-box"><img class="article-read-img article-heard-img" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/articleReadEyes2.png" alt=""> <span class="read-count">阅读量1.2w</span> <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/tobarCollect2.png" alt=""> <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt=""> <span class="name">收藏</span> <span class="get-collection"> 420 </span> </a>
+            <div class="read-count-box is-like"><img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/newHeart2023Active.png" alt=""> <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/pc/img/newHeart2023Black.png" alt=""> <span class="read-count" id="blog-digg-num">点赞数 77 </span></div></div></div></div><div class="blog-tags-box"><div class="tags-box artic-tag-box"><span class="label">分类专栏：</span> <a class="tag-link" href="https://blog.csdn.net/u011863024/category_11185579.html" target="_blank" rel="noopener">Git</a> <span class="label">文章标签：</span> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;git&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;git\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=git&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">git</a> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;github&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;github\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=github&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">github</a> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;gitee&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;gitee\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=gitee&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">gitee</a> <a rel="nofollow" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;gitlab&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;gitlab\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=gitlab&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" target="_blank">gitlab</a></div></div><div class="up-time">
+          <span>于&nbsp;2021-07-08 01:45:01&nbsp;首次发布</span></div><div class="slide-content-box"><div class="article-copyright"><div class="creativecommons">
+            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。</div><div class="article-source-link">
+            本文链接：<a href="https://blog.csdn.net/u011863024/article/details/118562748" target="_blank">https://blog.csdn.net/u011863024/article/details/118562748</a></div></div></div><div class="operating"><a class="href-article-edit slide-toggle">版权</a></div></div></div></div><div id="blogHuaweiyunAdvert"></div>
+      <article class="baidu_pl"><div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-044f2cf1dc.css"><div id="content_views" class="markdown_views prism-dracula">
+         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+         </svg>
+         <table>
+          <thead>
+           <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>&nbsp;</td>
+            <td><strong><a href="#Git_22" rel="nofollow">Git</a></strong></td>
+            <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td><a href="#00_Git_23" rel="nofollow">00_Git常用命令</a></td>
+            <td><a href="#01__78" rel="nofollow">01_课程介绍</a></td>
+            <td><a href="#02__107" rel="nofollow">02_官网介绍</a></td>
+           </tr>
+           <tr>
+            <td><a href="#03___123" rel="nofollow">03_概述_版本控制介绍</a></td>
+            <td><a href="#04__VS_137" rel="nofollow">04_概述_分布式版本控制VS集中式版本控制</a></td>
+            <td><a href="#05___164" rel="nofollow">05_概述_发展历史</a></td>
+           </tr>
+           <tr>
+            <td><a href="#06___168" rel="nofollow">06_概述_工作机制和代码托管中心</a></td>
+            <td><a href="#07___184" rel="nofollow">07_安装_安装和客户端的使用</a></td>
+            <td><a href="#08___194" rel="nofollow">08_命令_设置用户签名</a></td>
+           </tr>
+           <tr>
+            <td><a href="#09___236" rel="nofollow">09_命令_初始化本地库</a></td>
+            <td><a href="#10___271" rel="nofollow">10_命令_查看本地库状态</a></td>
+            <td><a href="#11___332" rel="nofollow">11_命令_添加暂存区</a></td>
+           </tr>
+           <tr>
+            <td><a href="#12___393" rel="nofollow">12_命令_提交本地库</a></td>
+            <td><a href="#13___448" rel="nofollow">13_命令_修改文件</a></td>
+            <td><a href="#14___515" rel="nofollow">14_命令_版本穿梭</a></td>
+           </tr>
+           <tr>
+            <td><a href="#15___688" rel="nofollow">15_分支_概述和优点</a></td>
+            <td><a href="#16___704" rel="nofollow">16_分支_查看&amp;创建&amp;切换</a></td>
+            <td><a href="#17___821" rel="nofollow">17_分支_合并分支(正常合并)</a></td>
+           </tr>
+           <tr>
+            <td><a href="#18___884" rel="nofollow">18_分支_合并分支(冲突合并)</a></td>
+            <td><a href="#19___1170" rel="nofollow">19_团队协作_团队内协作和跨团队协作</a></td>
+            <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td>&nbsp;</td>
+            <td><strong><a href="#Github_1180" rel="nofollow">Github</a></strong></td>
+            <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td><a href="#20_GitHub__1182" rel="nofollow">20_GitHub_创建远程库&amp;创建别名</a></td>
+            <td><a href="#21_GitHub__1231" rel="nofollow">21_GitHub_推送本地库到远程库</a></td>
+            <td><a href="#22_GitHub__1265" rel="nofollow">22_GitHub_拉取远程库到本地库</a></td>
+           </tr>
+           <tr>
+            <td><a href="#23_GitHub__1346" rel="nofollow">23_GitHub_克隆远程库到本地</a></td>
+            <td><a href="#24_GitHub__1408" rel="nofollow">24_GitHub_团队内协作</a></td>
+            <td><a href="#25_GitHub__1501" rel="nofollow">25_GitHub_跨团队协作</a></td>
+           </tr>
+           <tr>
+            <td><a href="#26_GitHub_SSH_1565" rel="nofollow">26_GitHub_SSH免密登录</a></td>
+            <td><a href="#27_IDEAGit__1750" rel="nofollow">27_IDEA集成Git_环境准备</a></td>
+            <td><a href="#28_IDEAGit__1817" rel="nofollow">28_IDEA集成Git_初始化&amp;添加&amp;提交</a></td>
+           </tr>
+           <tr>
+            <td><a href="#29_IDEAGit__1865" rel="nofollow">29_IDEA集成Git_切换版本</a></td>
+            <td><a href="#30_IDEAGit__1877" rel="nofollow">30_IDEA集成Git_创建分支&amp;切换分支</a></td>
+            <td><a href="#31_IDEAGit__1909" rel="nofollow">31_IDEA集成Git_合并分支(正常合并)</a></td>
+           </tr>
+           <tr>
+            <td><a href="#32_IDEAGit__1928" rel="nofollow">32_IDEA集成Git_合并分支(冲突合并)</a></td>
+            <td><a href="#33_IDEAGitHub_GitHub_1958" rel="nofollow">33_IDEA集成GitHub_设置GitHub账号</a></td>
+            <td><a href="#34_IDEAGitHub_GitHub_1996" rel="nofollow">34_IDEA集成GitHub_分享项目到GitHub</a></td>
+           </tr>
+           <tr>
+            <td><a href="#35_IDEAGitHub__2004" rel="nofollow">35_IDEA集成GitHub_推送代码到远程库</a></td>
+            <td><a href="#36_IDEAGitHub__2015" rel="nofollow">36_IDEA集成GitHub_拉取远程库代码合并本地库</a></td>
+            <td><a href="#37_IDEAGitHub__2024" rel="nofollow">37_IDEA集成GitHub_克隆代码到本地</a></td>
+           </tr>
+           <tr>
+            <td>&nbsp;</td>
+            <td><strong><a href="#Gitee_2035" rel="nofollow">Gitee</a></strong></td>
+            <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td><a href="#38___2036" rel="nofollow">38_码云_账号注册登录&amp;创建远程库</a></td>
+            <td><a href="#39__IDEAGitee_2061" rel="nofollow">39_码云_IDEA集成Gitee码云</a></td>
+            <td><a href="#40__GitHub_2077" rel="nofollow">40_码云_导入GitHub项目</a></td>
+           </tr>
+           <tr>
+            <td>&nbsp;</td>
+            <td><strong><a href="#GitLab_2081" rel="nofollow">GitLab</a></strong></td>
+            <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td><a href="#41_GitLab__2083" rel="nofollow">41_GitLab_简介和安装环境准备</a></td>
+            <td><a href="#42_GitLab__2106" rel="nofollow">42_GitLab_安装&amp;初始化服务&amp;启动服务</a></td>
+            <td><a href="#43_GitLab_GitLab_2200" rel="nofollow">43_GitLab_登录GitLab并创建远程库</a></td>
+           </tr>
+           <tr>
+            <td><a href="#44_GitLab_IDEAGitLab_2228" rel="nofollow">44_GitLab_IDEA集成GitLab</a></td>
+            <td><a href="#45__2234" rel="nofollow">45_课程总结</a></td>
+            <td>&nbsp;</td>
+           </tr>
+          </tbody>
+         </table>
+         <h2><a id="Git_22"></a>Git</h2>
+         <h3><a id="00_Git_23"></a>00_Git常用命令</h3>
+         <table>
+          <thead>
+           <tr>
+            <th align="left">命令</th>
+            <th align="left">说明</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td align="left"><strong>安装与配置</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">sudo apt-get install git</td>
+            <td align="left">Ubuntu上安装Git命令</td>
+           </tr>
+           <tr>
+            <td align="left">git config --global user.name 用户名</td>
+            <td align="left">设置用户签名<br>（安装Git后务必设置）</td>
+           </tr>
+           <tr>
+            <td align="left">git config --global user.email email地址</td>
+            <td align="left">设置用户email地址<br>（安装Git后务必设置）</td>
+           </tr>
+           <tr>
+            <td align="left"><strong>获取与创建项目</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">git init</td>
+            <td align="left">初始化本地库</td>
+           </tr>
+           <tr>
+            <td align="left">git clone 远程库地址</td>
+            <td align="left">从远程库克隆到本地</td>
+           </tr>
+           <tr>
+            <td align="left"><strong>基本快照</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">git status</td>
+            <td align="left">查看本地库状态</td>
+           </tr>
+           <tr>
+            <td align="left">git add 文件名</td>
+            <td align="left">添加变动文件到暂存区</td>
+           </tr>
+           <tr>
+            <td align="left">git add .</td>
+            <td align="left">添加当前目录下所有变动文件到暂存区</td>
+           </tr>
+           <tr>
+            <td align="left">git restore --staged 文件名</td>
+            <td align="left">复位在暂存区的文件（add反悔药）</td>
+           </tr>
+           <tr>
+            <td align="left">git rm --cached 文件名</td>
+            <td align="left">移除在暂存区的文件（add反悔药）（同上一条）</td>
+           </tr>
+           <tr>
+            <td align="left">git commit -m “备注文本” 文件名</td>
+            <td align="left">提交暂存区文件到本地库<br>（文件名缺省时，将暂存区所有文件提交）</td>
+           </tr>
+           <tr>
+            <td align="left">git commit --amend</td>
+            <td align="left">修改上次提交的备注文本</td>
+           </tr>
+           <tr>
+            <td align="left">git revert 版本号(7位)</td>
+            <td align="left">撤销指定的提交（commit反悔药）(慎用)</td>
+           </tr>
+           <tr>
+            <td align="left">git reset --hard 版本号(7位)</td>
+            <td align="left">版本间穿梭（配合git reflog使用）</td>
+           </tr>
+           <tr>
+            <td align="left">git reset --hard HEAD^</td>
+            <td align="left">穿梭到上一个版本</td>
+           </tr>
+           <tr>
+            <td align="left"><strong>分支与合并</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">git branch</td>
+            <td align="left">列出所有分支</td>
+           </tr>
+           <tr>
+            <td align="left">git branch 分支名</td>
+            <td align="left">创建分支</td>
+           </tr>
+           <tr>
+            <td align="left">git checkout 分支名</td>
+            <td align="left">切换分支</td>
+           </tr>
+           <tr>
+            <td align="left">git merge 分支名B</td>
+            <td align="left">分支B合并到A<br>（A为当前工作目录所处分支）</td>
+           </tr>
+           <tr>
+            <td align="left">git branch -d 分支名</td>
+            <td align="left">删除分支</td>
+           </tr>
+           <tr>
+            <td align="left">git tag</td>
+            <td align="left">列出所有本地标签</td>
+           </tr>
+           <tr>
+            <td align="left">git tag -l 通配模式文本(*)</td>
+            <td align="left">根据符合通配模式文本，列出所有本地标签</td>
+           </tr>
+           <tr>
+            <td align="left">git tag 标签名</td>
+            <td align="left">为最新提交创建<strong>轻量</strong>标签</td>
+           </tr>
+           <tr>
+            <td align="left">git tag 标签名 版本号(7位)</td>
+            <td align="left">为对应版本号提交创建<strong>轻量</strong>标签（在后期打标签）</td>
+           </tr>
+           <tr>
+            <td align="left">git tag -a 标签名 -m 备注文本</td>
+            <td align="left">为最新提交创建<strong>附注</strong>标签</td>
+           </tr>
+           <tr>
+            <td align="left">git tag -d 标签名</td>
+            <td align="left">删除指定标签</td>
+           </tr>
+           <tr>
+            <td align="left"><strong>共享与更新项目</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">git remote add 别名 远程仓库地址</td>
+            <td align="left">添加远程库</td>
+           </tr>
+           <tr>
+            <td align="left">git remote -v</td>
+            <td align="left">查看添加过的远程库</td>
+           </tr>
+           <tr>
+            <td align="left">git push 远程库地址或其别名 分支名</td>
+            <td align="left">推送到远程库</td>
+           </tr>
+           <tr>
+            <td align="left">git push 远程库地址或其别名 --tags</td>
+            <td align="left">推送所有标签到远程库</td>
+           </tr>
+           <tr>
+            <td align="left">git fetch</td>
+            <td align="left">将远程库的最新内容拉到本地</td>
+           </tr>
+           <tr>
+            <td align="left">git pull 远程库地址或其别名 分支名</td>
+            <td align="left">将远程仓库对于分支最新内容拉下来后与当前本地分支直接合并，<br>相当于git fetch + git merge，这样可能会产生冲突，需要手动解决</td>
+           </tr>
+           <tr>
+            <td align="left"><strong>检查与比较</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">git show 标签名</td>
+            <td align="left">显示标签信息和与之对应的提交信息</td>
+           </tr>
+           <tr>
+            <td align="left">git show 版本号(7位)</td>
+            <td align="left">显示对应版本对应的提交信息</td>
+           </tr>
+           <tr>
+            <td align="left">git log</td>
+            <td align="left">显示当前分支所有提交过的版本信息</td>
+           </tr>
+           <tr>
+            <td align="left">git log --follow 文件名</td>
+            <td align="left">显示当前分支所有提交过的关于指定文件版本信息</td>
+           </tr>
+           <tr>
+            <td align="left">git log --pretty=oneline</td>
+            <td align="left">显示当前分支所有提交过的版本信息（精简）</td>
+           </tr>
+           <tr>
+            <td align="left">git log --graph</td>
+            <td align="left">显示当前分支所有提交过的版本信息（附有分支合并图）</td>
+           </tr>
+           <tr>
+            <td align="left">git diff 分支一 分支二</td>
+            <td align="left">显示两分支差异</td>
+           </tr>
+           <tr>
+            <td align="left">git diff 版本号一(7位) 版本号二(7位)</td>
+            <td align="left">显示同一分支两版本差异</td>
+           </tr>
+           <tr>
+            <td align="left"><strong>管理</strong></td>
+            <td align="left"></td>
+           </tr>
+           <tr>
+            <td align="left">git reflog</td>
+            <td align="left">可以查看所有分支的所有操作记录<br>（包括已被删除的commit记录和reset的操作，git log所不能）</td>
+           </tr>
+          </tbody>
+         </table>
+         <h3><a id="01__78"></a>01_课程介绍</h3>
+         <p><a href="https://www.bilibili.com/video/BV1vy4y1s7k6" rel="nofollow">教学视频</a></p>
+         <ul>
+          <li>Git 
+           <ul>
+            <li>Git介绍 分布式版本控制工具 VS 集中式版本控制工具</li><li>Git安装 基于官网发布的最新版本2.31.1安装讲解</li><li>Git命令 基于开发案例详细讲解了git的常用命令</li><li>Git分支 分支特性 分支创建 分支转换 分支合并 代码合并冲突解决</li><li>Idea集成Git</li>
+           </ul></li><li>GitHub 
+           <ul>
+            <li>创建远程库</li><li>代码推送Push</li><li>代码拉取Pull</li><li>代码克隆Clone</li><li>SSH免密登录</li><li>Idea集成GitHub</li>
+           </ul></li><li>Gitee码云 
+           <ul>
+            <li>码云创建远程库</li><li>Idea集成Gitee码云</li><li>码云连接GitHub进行代码的复制和迁移</li>
+           </ul></li><li>GitLab 
+           <ul>
+            <li>GitLab服务器的搭建和部署</li><li>Idea集成GitLab</li>
+           </ul></li>
+         </ul>
+         <p>课程目标：五小时熟练掌握Git GitHub GitLab Gitee码云的使用</p>
+         <h3><a id="02__107"></a>02_官网介绍</h3>
+         <p><a href="https://git-scm.com/" rel="nofollow">Git官网</a></p>
+         <p><a href="http://git-scm.com/docs" rel="nofollow">Git官方文档</a></p>
+         <p><a href="https://git-scm.com/book/zh/v2" rel="nofollow">Git官方书</a></p>
+         <p><a href="https://git-scm.com/downloads" rel="nofollow">Git下载页面</a></p>
+         <p><a href="https://training.github.com/downloads/zh_CN/github-git-cheat-sheet/" rel="nofollow">Github Git Cheat Sheets - 中文版</a></p>
+         <p>Git 是一个免费的、开源的分布式版本控制系统，可以快速高效地处理从小型到大型的各种项目。</p>
+         <p>Git 易于学习，占地面积小，性能极快。 它具有廉价的本地库，方便的暂存区域和多个工作流分支等特性。 其性能优于 Subversion、 CVS、 Perforce 和 ClearCase 等版本控制工具。</p>
+         <h3><a id="03___123"></a>03_概述_版本控制介绍</h3>
+         <p>版本控制是一种记录文件内容变化，以便将来查阅特定版本修订情况的系统。</p>
+         <p>版本控制其实最重要的是可以记录文件修改历史记录，从而让用户能够查看历史版本，方便版本切换。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2abc5f18d46afc2d50cee7db484a460f.png" alt=""></p>
+         <h4><a id="_131"></a>为什么需要版本控制</h4>
+         <p>个人开发过渡到团队协作。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2bcf55bc8f1e6cda16fc048ed30e12fc.png" alt=""></p>
+         <h3><a id="04__VS_137"></a>04_概述_分布式版本控制VS集中式版本控制</h3>
+         <h4><a id="_139"></a>集中式版本控制工具</h4>
+         <p>集中化的版本控制系统诸如 CVS、 SVN 等，都有一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。多年以来，这已成为版本控制系统的标准做法。</p>
+         <p>这种做法带来了许多好处，每个人都可以在一定程度上看到项目中的其他人正在做些什么。而管理员也可以轻松掌控每个开发者的权限，并且管理一个集中化的版本控制系统， 要远比在各个客户端上维护本地数据库来得轻松容易。</p>
+         <p>事分两面，有好有坏。这么做显而易见的<strong>缺点</strong>是中央服务器的单点故障。如果服务器宕机一小时，那么在这一小时内，谁都无法提交更新，也就无法协同工作。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f0cc7f6f1eb57316f7f8fce8e2f03f45.png" alt=""></p>
+         <h4><a id="_151"></a>分布式版本控制工具</h4>
+         <p>Git、 Mercurial、 Bazaar、 Darcs……</p>
+         <p>像 Git 这种分布式版本控制工具，客户端提取的不是最新版本的文件快照，而是把代码仓库完整地镜像下来（本地库）。这样任何一处协同工作用的文件发生故障，事后都可以用其他客户端的本地仓库进行恢复。因为每个客户端的每一次文件提取操作，实际上都是一次对整个文件仓库的完整备份。</p>
+         <p>分布式的版本控制系统出现之后,解决了集中式版本控制系统的缺陷：</p>
+         <ol>
+          <li>服务器断网的情况下也可以进行开发（因为版本控制是在本地进行的）</li><li>每个客户端保存的也都是整个完整的项目（包含历史记录， 更加安全）</li>
+         </ol>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/340e9b3bc50013b61f0e83e96b99f86a.png" alt=""></p>
+         <h3><a id="05___164"></a>05_概述_发展历史</h3>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3f25cba01665ab8dcb63fcc79d05f04f.png" alt=""></p>
+         <h3><a id="06___168"></a>06_概述_工作机制和代码托管中心</h3>
+         <h4><a id="_170"></a>工作机制</h4>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/1706b3553447ac9f8d95377d965d4fd2.png" alt=""></p>
+         <h4><a id="_174"></a>代码托管中心</h4>
+         <p>代码托管中心是基于网络服务器的远程代码仓库，一般我们简单称为<strong>远程库</strong>。</p>
+         <ul>
+          <li>局域网 
+           <ul>
+            <li>GitLab</li>
+           </ul></li><li>互联网 
+           <ul>
+            <li>GitHub（外网）</li><li>Gitee 码云（国内网站）</li>
+           </ul></li>
+         </ul>
+         <h3><a id="07___184"></a>07_安装_安装和客户端的使用</h3>
+         <p>在<a href="https://git-scm.com/downloads" rel="nofollow">Git下载页面</a>，选择下载Windows 64位版的Git安装软件。</p>
+         <p>安装步骤按照安装软件的安装向导安装即可，无需过多配置。</p>
+         <p>安装成功后，通常在文件浏览器空白处单击击鼠标右键，弹出菜单栏有Git的选项。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/72adc78acc2344ab51285dae2c4776ad.png" alt=""></p>
+         <h3><a id="08___194"></a>08_命令_设置用户签名</h3>
+         <h4><a id="Git__196"></a>Git 常用命令</h4>
+         <table>
+          <thead>
+           <tr>
+            <th>命令名称</th>
+            <th>作用</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>git config --global user.name 用户名</td>
+            <td>设置用户签名</td>
+           </tr>
+           <tr>
+            <td>git config --global user.email 邮箱</td>
+            <td>设置用户email地址</td>
+           </tr>
+           <tr>
+            <td>git init</td>
+            <td>初始化本地库</td>
+           </tr>
+           <tr>
+            <td>git status</td>
+            <td>查看本地库状态</td>
+           </tr>
+           <tr>
+            <td>git add 文件名</td>
+            <td>添加到暂存区</td>
+           </tr>
+           <tr>
+            <td>git commit -m “日志信息” 文件名</td>
+            <td>提交到本地库</td>
+           </tr>
+           <tr>
+            <td>git reflog</td>
+            <td>查看历史记录</td>
+           </tr>
+           <tr>
+            <td>git reset --hard 版本号</td>
+            <td>版本穿梭</td>
+           </tr>
+          </tbody>
+         </table>
+         <h4><a id="_209"></a>设置用户签名</h4>
+         <pre class="set-code-show"><code>git config --global user.name abc #有户名
+git config --global user.email abc@123.com
+</code></pre>
+         <p>说明：<strong>签名的作用是区分不同操作者身份</strong>。用户的签名信息在每一个版本的提交信息中能够看到，以此确认本次提交是谁做的。 <strong>Git 首次安装必须设置一下用户签名，否则无法提交代码</strong>。</p>
+         <p><strong>注意</strong>： 这里设置用户签名和将来登录 GitHub（或其他代码托管中心）的账号没有任何关系。</p>
+         <p>查看设置过用户签名</p>
+         <pre class="set-code-show"><code>abc@DESKTOP-R85C9HV MINGW64 ~/Desktop
+$ cat ~/.gitconfig
+[user]
+        name = abc
+        email = abc@123.com
+[core]
+        quotepath = false
+</code></pre>
+         <h3><a id="09___236"></a>09_命令_初始化本地库</h3>
+         <p>基本语法：<code>git init</code></p>
+         <p>案例实操：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop
+$ <span class="token function">mkdir</span> HelloGit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token builtin class-name">cd</span> HelloGit/
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">ls</span> -al
+total <span class="token number">4</span>
+drwxr-xr-x <span class="token number">1</span> abc <span class="token number">197121</span> <span class="token number">0</span> Jul  <span class="token number">5</span> <span class="token number">20</span>:18 ./
+drwxr-xr-x <span class="token number">1</span> abc <span class="token number">197121</span> <span class="token number">0</span> Jul  <span class="token number">5</span> <span class="token number">20</span>:19 <span class="token punctuation">..</span>/
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> init
+Initialized empty Git repository <span class="token keyword">in</span> C:/Users/abc/Desktop/HelloGit/.git/
+
+<span class="token comment"># 创建了一个名为.git非空隐藏文件夹</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">ls</span> -al
+total <span class="token number">8</span>
+drwxr-xr-x <span class="token number">1</span> abc <span class="token number">197121</span> <span class="token number">0</span> Jul  <span class="token number">5</span> <span class="token number">20</span>:19 ./
+drwxr-xr-x <span class="token number">1</span> abc <span class="token number">197121</span> <span class="token number">0</span> Jul  <span class="token number">5</span> <span class="token number">20</span>:19 <span class="token punctuation">..</span>/
+drwxr-xr-x <span class="token number">1</span> abc <span class="token number">197121</span> <span class="token number">0</span> Jul  <span class="token number">5</span> <span class="token number">20</span>:19 .git/
+
+</code></pre>
+         <p>创建了一个名为.git非空隐藏文件夹。</p>
+         <h3><a id="10___271"></a>10_命令_查看本地库状态</h3>
+         <p>基本语法：<code>git status</code></p>
+         <p>案例实操：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop
+$ <span class="token builtin class-name">cd</span> HelloGit/
+
+<span class="token comment"># 首次查看（工作区没有任何文件）</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+nothing to commit <span class="token punctuation">(</span>create/copy files and use <span class="token string">"git add"</span> to track<span class="token punctuation">)</span>
+
+<span class="token comment"># 新增文件（hello.txt）</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+
+<span class="token comment"># 再次查看（检测到未追踪的文件）</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Untracked files:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to include <span class="token keyword">in</span> what will be committed<span class="token punctuation">)</span>
+        hello.txt
+
+nothing added to commit but untracked files present <span class="token punctuation">(</span>use <span class="token string">"git add"</span> to track<span class="token punctuation">)</span>
+
+</code></pre>
+         <h3><a id="11___332"></a>11_命令_添加暂存区</h3>
+         <p>基本语法：<code>git add 文件名</code></p>
+         <p>案例实操：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Untracked files:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to include <span class="token keyword">in</span> what will be committed<span class="token punctuation">)</span>
+        hello.txt
+
+nothing added to commit but untracked files present <span class="token punctuation">(</span>use <span class="token string">"git add"</span> to track<span class="token punctuation">)</span>
+
+<span class="token comment">#添加至暂存区</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+warning: LF will be replaced by CRLF <span class="token keyword">in</span> hello.txt.
+The <span class="token function">file</span> will have its original line endings <span class="token keyword">in</span> your working directory
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  <span class="token punctuation">(</span>use <span class="token string">"git rm --cached &lt;file&gt;..."</span> to unstage<span class="token punctuation">)</span>
+        new file:   hello.txt
+
+<span class="token comment">#移除暂存区的hello.txt</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">rm</span> --cached hello.txt
+<span class="token function">rm</span> <span class="token string">'hello.txt'</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Untracked files:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to include <span class="token keyword">in</span> what will be committed<span class="token punctuation">)</span>
+        hello.txt
+
+nothing added to commit but untracked files present <span class="token punctuation">(</span>use <span class="token string">"git add"</span> to track<span class="token punctuation">)</span>
+
+<span class="token comment"># 再次添加</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+warning: LF will be replaced by CRLF <span class="token keyword">in</span> hello.txt.
+The <span class="token function">file</span> will have its original line endings <span class="token keyword">in</span> your working directory
+</code></pre>
+         <h3><a id="12___393"></a>12_命令_提交本地库</h3>
+         <p>基本语法：<code>git commit -m "日志信息" 文件名</code></p>
+         <p>案例实操：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+
+No commits yet
+
+Untracked files:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to include <span class="token keyword">in</span> what will be committed<span class="token punctuation">)</span>
+        hello.txt
+
+nothing added to commit but untracked files present <span class="token punctuation">(</span>use <span class="token string">"git add"</span> to track<span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+warning: LF will be replaced by CRLF <span class="token keyword">in</span> hello.txt.
+The <span class="token function">file</span> will have its original line endings <span class="token keyword">in</span> your working directory
+
+<span class="token comment">#提交本地库</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"first commit"</span>
+<span class="token punctuation">[</span>master <span class="token punctuation">(</span>root-commit<span class="token punctuation">)</span> b0006bc<span class="token punctuation">]</span> first commit
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">19</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>
+ create mode <span class="token number">100644</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+nothing to commit, working tree clean
+</code></pre>
+         <p>查看提交记录</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+b0006bc <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> log
+commit b0006bc538b98b7eb77b4b4aaa17b6e333c4289e <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span>
+Author: abc <span class="token operator">&lt;</span>abc@123.com<span class="token operator">&gt;</span>
+Date:   Tue Jul <span class="token number">6</span> 00:38:24 <span class="token number">2021</span> +0800
+
+    first commit
+</code></pre>
+         <h3><a id="13___448"></a>13_命令_修改文件</h3>
+         <p>修改hello.txt内容，<code>git status</code>会提示该文件修改过</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span><span class="token number">222</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+
+<span class="token comment">#提示 hello.txt 被修改过（modified）</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+Changes not staged <span class="token keyword">for</span> commit:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to update what will be committed<span class="token punctuation">)</span>
+  <span class="token punctuation">(</span>use <span class="token string">"git restore &lt;file&gt;..."</span> to discard changes <span class="token keyword">in</span> working directory<span class="token punctuation">)</span>
+        modified:   hello.txt
+
+no changes added to commit <span class="token punctuation">(</span>use <span class="token string">"git add"</span> and/or <span class="token string">"git commit -a"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 将修改的文件再次添加暂存区</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+warning: LF will be replaced by CRLF <span class="token keyword">in</span> hello.txt.
+The <span class="token function">file</span> will have its original line endings <span class="token keyword">in</span> your working directory
+
+<span class="token comment"># 第2次提交</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"second commit"</span>
+<span class="token punctuation">[</span>master 6967bf0<span class="token punctuation">]</span> second commit
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+6967bf0 <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+nothing to commit, working tree clean
+</code></pre>
+         <h3><a id="14___515"></a>14_命令_版本穿梭</h3>
+         <h4><a id="_517"></a>查看历史版本</h4>
+         <p>基本语法：</p>
+         <ul>
+          <li><p><code>git reflog</code> 查看版本信息</p></li><li><p><code>git log</code> 查看版本详细信息</p></li>
+         </ul>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+41f776b <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> log
+commit 41f776ba69ea06c42bd449098d818ab73608d4dd <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span>
+Author: abc <span class="token operator">&lt;</span>abc@123.com<span class="token operator">&gt;</span>
+Date:   Tue Jul <span class="token number">6</span> 01:18:21 <span class="token number">2021</span> +0800
+
+    third commit
+
+commit 6967bf01bdcbc8e326f1b8c45d45db8bd4c0c868
+Author: abc <span class="token operator">&lt;</span>abc@123.com<span class="token operator">&gt;</span>
+Date:   Tue Jul <span class="token number">6</span> 01:02:10 <span class="token number">2021</span> +0800
+
+    second commit
+
+commit b0006bc538b98b7eb77b4b4aaa17b6e333c4289e
+Author: abc <span class="token operator">&lt;</span>abc@123.com<span class="token operator">&gt;</span>
+Date:   Tue Jul <span class="token number">6</span> 00:38:24 <span class="token number">2021</span> +0800
+
+    first commit
+
+</code></pre>
+         <p><strong>git log与git reflog区别</strong></p>
+         <p><code>git log</code> 命令可以显示所有提交过的版本信息，如果感觉太繁琐，可以加上参数 <code>--pretty=oneline</code>，只会显示版本号和提交时的备注信息。</p>
+         <p><code>git reflog</code> 可以查看所有分支的所有操作记录（包括已经被删除的 commit 记录和 reset 的操作）。例如，执行 <code>git reset --hard HEAD~1</code>，退回到上一个版本，用<code>git log</code>则是看不出来被删除的commitid，用<code>git reflog</code>则可以看到被删除的commitid，我们就可以买后悔药，恢复到被删除的那个版本。<a href="https://blog.csdn.net/u013252047/article/details/80230781">link</a></p>
+         <h4><a id="_560"></a>版本穿梭</h4>
+         <p>基本语法：<code>git reset --hard 版本号</code></p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token comment"># 首先查看当前的历史记录</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+41f776b <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+<span class="token comment"># 切换到 b0006bc 版本，也就是第一次提交的版本</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reset --hard b0006bc
+HEAD is now at b0006bc first commit
+
+<span class="token comment"># 切换完毕之后再查看历史记录，当前成功切换到了 b0006bc 版本</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+b0006bc <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+41f776b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">3</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+<span class="token comment"># 然后查看文件 hello.txt，发现文件内容回到第一版本</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+
+</code></pre>
+         <p>当你在切换版本后，再更改文本内容提交：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+Changes not staged <span class="token keyword">for</span> commit:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to update what will be committed<span class="token punctuation">)</span>
+  <span class="token punctuation">(</span>use <span class="token string">"git restore &lt;file&gt;..."</span> to discard changes <span class="token keyword">in</span> working directory<span class="token punctuation">)</span>
+        modified:   hello.txt
+
+no changes added to commit <span class="token punctuation">(</span>use <span class="token string">"git add"</span> and/or <span class="token string">"git commit -a"</span><span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"forth commit"</span>
+<span class="token punctuation">[</span>master 5f8dbf6<span class="token punctuation">]</span> forth commit
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+5f8dbf6 <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit: forth commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+41f776b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">3</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">4</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+</code></pre>
+         <p>再次切换到第一版本：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reset --hard b0006bc
+HEAD is now at b0006bc first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+b0006bc <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+5f8dbf6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: commit: forth commit
+b0006bc <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+41f776b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">3</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">4</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">5</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+</code></pre>
+         <p><strong>Git 切换版本， 底层其实是移动的 HEAD 指针。</strong></p>
+         <h3><a id="15___688"></a>15_分支_概述和优点</h3>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/bcad650a512a72097b3391e00ecb8bbe.png" alt=""></p>
+         <h4><a id="_692"></a>什么是分支</h4>
+         <p>在版本控制过程中，同时推进多个任务，为每个任务，我们就可以创建每个任务的单独分支。使用分支意味着程序员可以把自己的工作从开发主线上分离开来， 开发自己分支的时候，不会影响主线分支的运行。对于初学者而言，分支可以简单理解为副本，一个分支就是一个单独的副本。（分支底层其实也是指针的引用）</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f1d0659ed000e9dfa295fc696a58cf74.png" alt="某项目有四条分支"></p>
+         <h4><a id="_698"></a>分支的好处</h4>
+         <p>同时并行推进多个功能开发，提高开发效率。</p>
+         <p>各个分支在开发过程中，如果某一个分支开发失败，不会对其他分支有任何影响。失败的分支删除重新开始即可。</p>
+         <h3><a id="16___704"></a>16_分支_查看&amp;创建&amp;切换</h3>
+         <h4><a id="_706"></a>分支的操作</h4>
+         <table>
+          <thead>
+           <tr>
+            <th>命令名称</th>
+            <th>作用</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>git branch 分支名</td>
+            <td>创建分支</td>
+           </tr>
+           <tr>
+            <td>git branch -v</td>
+            <td>查看分支</td>
+           </tr>
+           <tr>
+            <td>git checkout 分支名</td>
+            <td>切换分支</td>
+           </tr>
+           <tr>
+            <td>git merge 分支名</td>
+            <td>把指定的分支合并到当前分支上</td>
+           </tr>
+          </tbody>
+         </table>
+         <h4><a id="_715"></a>查看分支</h4>
+         <p>基本语法：<code>git branch -v</code></p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> branch -v
+* master b0006bc first commit
+</code></pre>
+         <h4><a id="_725"></a>创建分支</h4>
+         <p>基本语法：<code>git branch 分支名</code></p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> branch hot-fix
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> branch -v
+  hot-fix b0006bc first commit
+* master  b0006bc first commit
+</code></pre>
+         <p><strong>刚创建的新的分支，并将主分支master的内容复制了一份</strong>。</p>
+         <h4><a id="_741"></a>切换分支</h4>
+         <p>基本语法：<code>git checkout 分支名</code></p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> checkout hot-fix
+Switched to branch <span class="token string">'hot-fix'</span>
+
+<span class="token comment"># 切换到刚创建的分支上</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> branch -v
+* hot-fix b0006bc first commit
+  master  b0006bc first commit
+</code></pre>
+         <p>切换分支后，在新分支修改文件：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch hot-fix
+Changes not staged <span class="token keyword">for</span> commit:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to update what will be committed<span class="token punctuation">)</span>
+  <span class="token punctuation">(</span>use <span class="token string">"git restore &lt;file&gt;..."</span> to discard changes <span class="token keyword">in</span> working directory<span class="token punctuation">)</span>
+        modified:   hello.txt
+
+no changes added to commit <span class="token punctuation">(</span>use <span class="token string">"git add"</span> and/or <span class="token string">"git commit -a"</span><span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+
+<span class="token comment">#在hot-fix提交</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"hot-fix first commit"</span>
+<span class="token punctuation">[</span>hot-fix 25f62d6<span class="token punctuation">]</span> hot-fix first commit
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+25f62d6 <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> hot-fix<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit: hot-fix first commit
+b0006bc <span class="token punctuation">(</span>master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+b0006bc <span class="token punctuation">(</span>master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+5f8dbf6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">3</span><span class="token punctuation">}</span>: commit: forth commit
+b0006bc <span class="token punctuation">(</span>master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">4</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+41f776b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">5</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">6</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc <span class="token punctuation">(</span>master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">7</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+</code></pre>
+         <h3><a id="17___821"></a>17_分支_合并分支(正常合并)</h3>
+         <p>基本语法：<code>git merge 分支名</code></p>
+         <p>在 master 分支上合并 hot-fix 分支（将hot-fix的合并到master）。</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token comment"># 首先要切换到master分支上</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> checkout master
+Switched to branch <span class="token string">'master'</span>
+
+<span class="token comment">#将hot-fix的合并到master</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> merge hot-fix
+Updating b0006bc<span class="token punctuation">..</span>25f62d6
+Fast-forward
+ hello.txt <span class="token operator">|</span> <span class="token number">2</span> +-
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+<span class="token comment">#合并后，可以在master分支上看到hot-fix上分支对文件的修改</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+
+<span class="token comment">#合并后，hot-fix分支依然存在，并未消失</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> branch -v
+  hot-fix 25f62d6 hot-fix first commit
+* master  25f62d6 hot-fix first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> branch hot-fix
+fatal: A branch named <span class="token string">'hot-fix'</span> already exists.
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> checkout hot-fix
+Switched to branch <span class="token string">'hot-fix'</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$
+</code></pre>
+         <h3><a id="18___884"></a>18_分支_合并分支(冲突合并)</h3>
+         <h4><a id="_886"></a>冲突产生的原因</h4>
+         <p>并分支时，两个分支在同一个文件的同一个位置有两套完全不同的修改。 Git 无法替我们决定使用哪一个，因此，必须<strong>人为决定</strong>新代码内容。</p>
+         <h4><a id="_892"></a>产生冲突</h4>
+         <p>首先，在master修改文件hello.txt最后一行内容，并提交：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+Changes not staged <span class="token keyword">for</span> commit:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to update what will be committed<span class="token punctuation">)</span>
+  <span class="token punctuation">(</span>use <span class="token string">"git restore &lt;file&gt;..."</span> to discard changes <span class="token keyword">in</span> working directory<span class="token punctuation">)</span>
+        modified:   hello.txt
+
+no changes added to commit <span class="token punctuation">(</span>use <span class="token string">"git add"</span> and/or <span class="token string">"git commit -a"</span><span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"master test"</span>
+<span class="token punctuation">[</span>master fb0e30b<span class="token punctuation">]</span> master <span class="token builtin class-name">test</span>
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">2</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">2</span> deletions<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+</code></pre>
+         <p>然后，在hot-fix修改文件hello.txt最后一行内容，并提交：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> checkout hot-fix
+Switched to branch <span class="token string">'hot-fix'</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"hot-fix test"</span>
+<span class="token punctuation">[</span>hot-fix 47d2d8f<span class="token punctuation">]</span> hot-fix <span class="token builtin class-name">test</span>
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+</code></pre>
+         <p>切换到master分支，然后将hot-fix分支的合并到master，冲突产生：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span>
+$ <span class="token function">git</span> checkout master
+Switched to branch <span class="token string">'master'</span>
+
+<span class="token comment"># 冲突产生</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> merge hot-fix
+Auto-merging hello.txt
+CONFLICT <span class="token punctuation">(</span>content<span class="token punctuation">)</span>: Merge conflict <span class="token keyword">in</span> hello.txt
+Automatic merge failed<span class="token punctuation">;</span> fix conflicts and <span class="token keyword">then</span> commit the result.
+
+<span class="token comment"># MERGING 出现，表示有冲突待解决</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+You have unmerged paths.
+  <span class="token punctuation">(</span>fix conflicts and run <span class="token string">"git commit"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">(</span>use <span class="token string">"git merge --abort"</span> to abort the merge<span class="token punctuation">)</span>
+
+Unmerged paths:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to mark resolution<span class="token punctuation">)</span>
+        both modified:   hello.txt
+
+no changes added to commit <span class="token punctuation">(</span>use <span class="token string">"git add"</span> and/or <span class="token string">"git commit -a"</span><span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+<span class="token operator">&lt;&lt;&lt;</span><span class="token operator">&lt;&lt;&lt;</span><span class="token operator">&lt;</span> HEAD
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> hot-fix
+
+</code></pre>
+         <h4><a id="_1047"></a>解决冲突</h4>
+         <p>编辑有冲突的文件，<strong>删除特殊符号</strong>，决定要使用的内容</p>
+         <p>特殊符号：</p>
+         <pre class="set-code-show"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+当前分支的代码 
+======= 
+合并过来的代码 
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; hot-fix
+</code></pre>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+<span class="token operator">&lt;&lt;&lt;</span><span class="token operator">&lt;&lt;&lt;</span><span class="token operator">&lt;</span> HEAD
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> hot-fix
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+You have unmerged paths.
+  <span class="token punctuation">(</span>fix conflicts and run <span class="token string">"git commit"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">(</span>use <span class="token string">"git merge --abort"</span> to abort the merge<span class="token punctuation">)</span>
+
+Unmerged paths:
+  <span class="token punctuation">(</span>use <span class="token string">"git add &lt;file&gt;..."</span> to mark resolution<span class="token punctuation">)</span>
+        both modified:   hello.txt
+
+no changes added to commit <span class="token punctuation">(</span>use <span class="token string">"git add"</span> and/or <span class="token string">"git commit -a"</span><span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token operator">|</span>MERGING<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"conflict solved"</span>
+<span class="token punctuation">[</span>master 785ab46<span class="token punctuation">]</span> conflict solved
+
+<span class="token comment"># (master|MERGING)的|MERGING消失了，冲突解决</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+785ab46 <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>merge<span class="token punctuation">)</span>: conflict solved
+fb0e30b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+47d2d8f <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: commit: hot-fix <span class="token builtin class-name">test</span>
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">3</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+fb0e30b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">4</span><span class="token punctuation">}</span>: commit: master <span class="token builtin class-name">test</span>
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">5</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">6</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">7</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">8</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">9</span><span class="token punctuation">}</span>: merge hot-fix: Fast-forward
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">10</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">11</span><span class="token punctuation">}</span>: commit: hot-fix first commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">12</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">13</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+5f8dbf6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">14</span><span class="token punctuation">}</span>: commit: forth commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">15</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+41f776b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">16</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">17</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">18</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$
+</code></pre>
+         <h4><a id="_1161"></a>创建分支和切换分支</h4>
+         <p>master、 hot-fix 其实都是指向具体版本记录的指针。当前所在的分支，其实是由 HEAD决定的。所以创建分支的本质就是多创建一个指针。</p>
+         <ul>
+          <li>HEAD 如果指向 master，那么我们现在就在 master 分支上。</li><li>HEAD 如果执行 hot-fix，那么我们现在就在 hot-fix 分支上。</li>
+         </ul>
+         <p>所以切换分支的本质就是移动 HEAD 指针。</p>
+         <h3><a id="19___1170"></a>19_团队协作_团队内协作和跨团队协作</h3>
+         <h4><a id="_1172"></a>团队内协作</h4>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c397bde00d728c4e41eca79f578d25c3.png" alt=""></p>
+         <h4><a id="_1176"></a>跨团队协作</h4>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/e3069f865cc2d9760801b7a06c9d213b.png" alt=""></p>
+         <h2><a id="Github_1180"></a>Github</h2>
+         <h3><a id="20_GitHub__1182"></a>20_GitHub_创建远程库&amp;创建别名</h3>
+         <p><a href="https://github.com/">GitHub网址</a></p>
+         <h4><a id="_1186"></a>创建远程库</h4>
+         <p>登陆后，点击在网页右上角的“+” --&gt; “New repository”，创建远程库。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3dfd6ad9419bfcef2635e08a5c02e86c.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/fba2c7ad888d2aeeea3a6f4a28c7fb03.png" alt=""></p>
+         <h4><a id="_1194"></a>远程仓库操作</h4>
+         <table>
+          <thead>
+           <tr>
+            <th>命令名称</th>
+            <th>作用</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>git remote -v</td>
+            <td>查看当前所有远程地址别名</td>
+           </tr>
+           <tr>
+            <td>git remote add 别名 远程地址</td>
+            <td>起别名</td>
+           </tr>
+           <tr>
+            <td>git push 别名 分支</td>
+            <td>推送本地分支上的内容到远程仓库</td>
+           </tr>
+           <tr>
+            <td>git clone 远程地址</td>
+            <td>将远程仓库的内容克隆到本地</td>
+           </tr>
+           <tr>
+            <td>git pull 远程库地址别名 远程分支名</td>
+            <td>将远程仓库对于分支最新内容拉下来后与 当前本地分支直接合并</td>
+           </tr>
+          </tbody>
+         </table>
+         <h4><a id="_1204"></a>创建别名</h4>
+         <p><strong>基本语法</strong>：</p>
+         <ul>
+          <li><code>git remote -v</code> 查看当前所有远程地址别名</li><li><code>git remote add 别名 远程地址</code></li>
+         </ul>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> remote -v
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> remote <span class="token function">add</span> hellogit https://github.com/abc/HelloGit.git
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> remote -v
+hellogit        https://github.com/abc/HelloGit.git <span class="token punctuation">(</span>fetch<span class="token punctuation">)</span>
+hellogit        https://github.com/abc/HelloGit.git <span class="token punctuation">(</span>push<span class="token punctuation">)</span>
+
+</code></pre>
+         <p>https://github.com/abc/HelloGit.git，这个地址在创建完远程仓库后生成的连接 ，如图所示</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/d9ee95e5b293a176efbfe8afefc3e632.png" alt=""></p>
+         <h3><a id="21_GitHub__1231"></a>21_GitHub_推送本地库到远程库</h3>
+         <p>基本语法：<code>git push 别名 分支</code></p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token comment"># 将master分支推送到别名为hellogit远程地址，</span>
+<span class="token comment"># 也就推送到https://github.com/abc/HelloGit.git（具体看前一节）</span>
+<span class="token comment"># 这里需要授权认证操作（输入账号密码）</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> push hellogit master
+fatal: unable to access <span class="token string">'https://github.com/abc/HelloGit.git/'</span><span class="token builtin class-name">:</span> OpenSSL SSL_read: Connection was reset, errno <span class="token number">10054</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> push hellogit master
+Enumerating objects: <span class="token number">13</span>, done.
+Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">13</span>/13<span class="token punctuation">)</span>, done.
+Delta compression using up to <span class="token number">8</span> threads
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">9</span>/9<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">13</span>/13<span class="token punctuation">)</span>, <span class="token number">1.02</span> KiB <span class="token operator">|</span> <span class="token number">523.00</span> KiB/s, done.
+Total <span class="token number">13</span> <span class="token punctuation">(</span>delta <span class="token number">4</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">4</span>/4<span class="token punctuation">)</span>, done.
+To https://github.com/abc/HelloGit.git
+ * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      master -<span class="token operator">&gt;</span> master
+
+</code></pre>
+         <p>推送成功后，刷新https://github.com/abc/HelloGit：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/84e90e7cd9e5cda112179e28facb2c2e.png" alt=""></p>
+         <h3><a id="22_GitHub__1265"></a>22_GitHub_拉取远程库到本地库</h3>
+         <p>基本语法：<code>git pull 别名 分支</code></p>
+         <p>在Github上修改hello.txt文件，并提交。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/bfe5dcc2d0362f94437bf09b16986ee5.png" alt=""></p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token comment">#从hellogit拉取到master分支上</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> pull hellogit master
+remote: Enumerating objects: <span class="token number">5</span>, done.
+remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">5</span>/5<span class="token punctuation">)</span>, done.
+remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2</span>/2<span class="token punctuation">)</span>, done.
+remote: Total <span class="token number">3</span> <span class="token punctuation">(</span>delta <span class="token number">1</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>
+Unpacking objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">3</span>/3<span class="token punctuation">)</span>, <span class="token number">672</span> bytes <span class="token operator">|</span> <span class="token number">168.00</span> KiB/s, done.
+From https://github.com/JallenKwong/HelloGit
+ * branch            master     -<span class="token operator">&gt;</span> FETCH_HEAD
+   785ab46<span class="token punctuation">..</span>47e257f  master     -<span class="token operator">&gt;</span> hellogit/master
+Updating 785ab46<span class="token punctuation">..</span>47e257f
+Fast-forward
+ hello.txt <span class="token operator">|</span> <span class="token number">2</span> +-
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+<span class="token comment"># 可看到从Github上修改后痕迹</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>modify from Github editor
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+nothing to commit, working tree clean
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+47e257f <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master, hellogit/master<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: pull hellogit master: Fast-forward
+785ab46 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">1</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>merge<span class="token punctuation">)</span>: conflict solved
+fb0e30b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">2</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+47d2d8f <span class="token punctuation">(</span>hot-fix<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">3</span><span class="token punctuation">}</span>: commit: hot-fix <span class="token builtin class-name">test</span>
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">4</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+fb0e30b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">5</span><span class="token punctuation">}</span>: commit: master <span class="token builtin class-name">test</span>
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">6</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">7</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">8</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">9</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">10</span><span class="token punctuation">}</span>: merge hot-fix: Fast-forward
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">11</span><span class="token punctuation">}</span>: checkout: moving from hot-fix to master
+25f62d6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">12</span><span class="token punctuation">}</span>: commit: hot-fix first commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">13</span><span class="token punctuation">}</span>: checkout: moving from master to hot-fix
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">14</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+5f8dbf6 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">15</span><span class="token punctuation">}</span>: commit: forth commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">16</span><span class="token punctuation">}</span>: reset: moving to b0006bc
+41f776b HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">17</span><span class="token punctuation">}</span>: commit: third commit
+6967bf0 HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">18</span><span class="token punctuation">}</span>: commit: second commit
+b0006bc HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">19</span><span class="token punctuation">}</span>: commit <span class="token punctuation">(</span>initial<span class="token punctuation">)</span>: first commit
+</code></pre>
+         <h3><a id="23_GitHub__1346"></a>23_GitHub_克隆远程库到本地</h3>
+         <p>基本语法：<code>git clone 远程地址</code></p>
+         <p>在远程库获取地址URL</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/ff23330d5eab8f2a681c6f91727a37ca.png" alt=""></p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+
+<span class="token comment"># 创建一个新文件夹</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop
+$ <span class="token function">mkdir</span> HelloGit-clone
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop
+$ <span class="token builtin class-name">cd</span> HelloGit-clone/
+
+<span class="token comment"># 在新的文件夹内，克隆远程库到本地</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone
+$ <span class="token function">git</span> clone https://github.com/abc/HelloGit.git
+Cloning into <span class="token string">'HelloGit'</span><span class="token punctuation">..</span>.
+remote: Enumerating objects: <span class="token number">16</span>, done.
+remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">16</span>/16<span class="token punctuation">)</span>, done.
+remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7</span>/7<span class="token punctuation">)</span>, done.
+remote: Total <span class="token number">16</span> <span class="token punctuation">(</span>delta <span class="token number">5</span><span class="token punctuation">)</span>, reused <span class="token number">12</span> <span class="token punctuation">(</span>delta <span class="token number">4</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>
+Receiving objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">16</span>/16<span class="token punctuation">)</span>, done.
+Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">5</span>/5<span class="token punctuation">)</span>, done.
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone
+
+$ <span class="token function">git</span> remote -v
+fatal: not a <span class="token function">git</span> repository <span class="token punctuation">(</span>or any of the parent directories<span class="token punctuation">)</span>: .git
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone
+$ <span class="token function">ls</span>
+HelloGit/
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone
+$ <span class="token builtin class-name">cd</span> HelloGit/
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> remote -v
+origin  https://github.com/abc/HelloGit.git <span class="token punctuation">(</span>fetch<span class="token punctuation">)</span>
+origin  https://github.com/abc/HelloGit.git <span class="token punctuation">(</span>push<span class="token punctuation">)</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> reflog
+47e257f <span class="token punctuation">(</span>HEAD -<span class="token operator">&gt;</span> master, origin/master, origin/HEAD<span class="token punctuation">)</span> HEAD@<span class="token punctuation">{<!-- --></span><span class="token number">0</span><span class="token punctuation">}</span>: clone: from https://github.com/JallenKwong/HelloGit.git
+
+</code></pre>
+         <p>clone 会做如下操作：</p>
+         <ol>
+          <li>拉取代码。</li><li>初始化本地仓库。</li><li>创建别名。</li>
+         </ol>
+         <h3><a id="24_GitHub__1408"></a>24_GitHub_团队内协作</h3>
+         <p>一、选择邀请合作者。（在仓库设置里操作）</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/945f1ba6e29fb725ee0d852ff59c3851.png" alt=""></p>
+         <p>二、填入目标合作者。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/ee1b6a6656efe2adbb740b38954529b9.png" alt=""></p>
+         <p>三、复制网址发送给你目标合作者 ， 复制内容如下：https://github.com/atguiguyueyue/git-shTest/invitations。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/0f5ec0155e64421d315594aa537fd187.png" alt=""></p>
+         <p>四、目标合作者接收到网址，用浏览器打开它，点击接受邀请。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/295a2398e0a3150d50530d5db21103aa.png" alt=""></p>
+         <p>五、接受邀请成功之后，可以在目标合作者Github账号上看到将来共同开发远程仓库。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/ddca26e11277016e10eb610195567dac.png" alt=""></p>
+         <p>六、目标合作者可以修改内容并 push 到远程仓库。</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token comment"># 编辑 clone 下来的文件</span>
+Layne@LAPTOP-Layne MINGW64 /d/Git-Space/pro-linghuchong/git-shTest<span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+Layne@LAPTOP-Layne MINGW64 /d/Git-Space/pro-linghuchong/git-shTest<span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span> <span class="token number">2222222222222</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span> <span class="token number">33333333333333</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span> 我是最帅的， 比岳不群还帅
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span> master <span class="token builtin class-name">test</span>
+hello git<span class="token operator">!</span> hello atguigu<span class="token operator">!</span> hot-fix <span class="token builtin class-name">test</span>
+
+<span class="token comment"># 将编辑好的文件添加到暂存区</span>
+Layne@LAPTOP-Layne MINGW64 /d/Git-Space/pro-linghuchong/git-shTest<span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> hello.txt
+
+<span class="token comment"># 将暂存区的文件上传到本地库</span>
+Layne@LAPTOP-Layne MINGW64 /d/Git-Space/pro-linghuchong/git-shTest<span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"lhc commit"</span> hello.txt
+<span class="token punctuation">[</span>master 5dabe6b<span class="token punctuation">]</span> lhc commit
+<span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+<span class="token comment"># 将本地库的内容 push 到远程仓库</span>
+Layne@LAPTOP-Layne MINGW64 /d/Git-Space/pro-linghuchong/git-shTest
+<span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> push origin master
+Logon failed, use ctrl+c to cancel basic credential prompt.
+Username <span class="token keyword">for</span> <span class="token string">'https://github.com'</span><span class="token builtin class-name">:</span> atguigulinghuchong
+Counting objects: <span class="token number">3</span>, done.
+Delta compression using up to <span class="token number">12</span> threads.
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2</span>/2<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">3</span>/3<span class="token punctuation">)</span>, <span class="token number">309</span> bytes <span class="token operator">|</span> <span class="token number">309.00</span> KiB/s, done.
+Total <span class="token number">3</span> <span class="token punctuation">(</span>delta <span class="token number">1</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span>, completed with <span class="token number">1</span> <span class="token builtin class-name">local</span> object.
+To https://github.com/atguiguyueyue/git-shTest.git
+7cb4d02<span class="token punctuation">..</span>5dabe6b master -<span class="token operator">&gt;</span> master
+</code></pre>
+         <p>七、回到发送合作邀请者的 GitHub 远程仓库中可以看到，最后一次是目标合作者提交的。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/b1a36bdb929e5dcb8cc03744e8806221.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2bb7de5f45f0a6b692d18806f976a932.png" alt=""></p>
+         <h3><a id="25_GitHub__1501"></a>25_GitHub_跨团队协作</h3>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/e3069f865cc2d9760801b7a06c9d213b.png" alt="跨团队协作"></p>
+         <p>一、将远程仓库的地址复制发给邀请跨团队协作的人，比如东方不败。</p>
+         <p>二、在东方不败的 GitHub 账号里的地址栏复制收到的链接，然后点击 网页右上方的Fork按钮，将项目叉到自己的本地仓库。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/4856e4845a7f0dbb54c79bd804892f5e.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c641d9ba65f20ba58d3f98ec792ae0e5.png" alt=""></p>
+         <p>叉成功后可以看到当前仓库信息。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3078d75badb2fd393dbe172327dc094c.png" alt=""></p>
+         <p>三、东方不败就可以在线编辑叉取过来的文件。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/40aa522895eb04a6c203a9bcbca25005.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/eb19249416069d158e2b4280a679063f.png" alt=""></p>
+         <p>四、编辑完毕后，填写描述信息并点击左下角绿色按钮提交。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c87379a8a91eb65e2961475129362da4.png" alt=""></p>
+         <p>五、接下来点击上方的 Pull 请求，并创建一个新的请求。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/8bdb52dc24df07d8d846a4fe19985908.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/9c2f07c7ba5586e3923ba870a37c856d.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/996007e8e9fee91ef37af6818e164139.png" alt=""></p>
+         <p>六、回到岳岳 GitHub 账号可以看到有一个 Pull request 请求。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c634b139396001cb2fcb64b8e2a078e1.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/d666e1f3544c07821e85b602d0beffc5.png" alt=""></p>
+         <p>进入到聊天室，可以讨论代码相关内容。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3d97452ea50fffca42ec29308c842692.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/9c477d95ea98448b966264bdae235b64.png" alt=""></p>
+         <p>七、如果代码没有问题，可以点击 Merge pull reque 合并代码。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/894bdb75678d7793e92f1099e5c1d080.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2964db9c2239859ee59c4bfb9fb25513.png" alt=""></p>
+         <h3><a id="26_GitHub_SSH_1565"></a>26_GitHub_SSH免密登录</h3>
+         <p>我们可以看到远程仓库中还有一个 SSH 的地址，因此我们也可以使用 SSH 进行访问。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/197d6964ccfb06f1eaf22f795061826d.png" alt=""></p>
+         <p>先到用户的主页目录，删除.ssh文件夹（如果没有.ssh文件夹，忽略此步）：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token builtin class-name">cd</span> ~
+
+abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token builtin class-name">pwd</span>
+/c/Users/abc
+
+abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token function">ls</span> -a .ssh
+./  <span class="token punctuation">..</span>/  id_rsa  id_rsa.pub
+
+abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token function">rm</span> -rf .ssh
+
+abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token function">ls</span> -a .ssh
+ls: cannot access <span class="token string">'.ssh'</span><span class="token builtin class-name">:</span> No such <span class="token function">file</span> or directory
+
+</code></pre>
+         <p>运行命令ssh-keygen生成.ssh目录：</p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ ssh-keygen -t rsa -C abc@123.com
+Generating public/private rsa key pair.
+Enter <span class="token function">file</span> <span class="token keyword">in</span> <span class="token function">which</span> to save the key <span class="token punctuation">(</span>/c/Users/abc/.ssh/id_rsa<span class="token punctuation">)</span>:
+Created directory <span class="token string">'/c/Users/abc/.ssh'</span><span class="token builtin class-name">.</span>
+Enter passphrase <span class="token punctuation">(</span>empty <span class="token keyword">for</span> no passphrase<span class="token punctuation">)</span>:
+Enter same passphrase again:
+Your identification has been saved <span class="token keyword">in</span> /c/Users/abc/.ssh/id_rsa
+Your public key has been saved <span class="token keyword">in</span> /c/Users/abc/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:aeNMB/hP2yiH/Dka2jK9BJciSgA8yKKLlKXX8oei7J0 jallenkwong@163.com
+The key's randomart image is:
++---<span class="token punctuation">[</span>RSA <span class="token number">3072</span><span class="token punctuation">]</span>----+
+<span class="token operator">|</span><span class="token operator">=</span>                <span class="token operator">|</span>
+<span class="token operator">|</span>++ <span class="token builtin class-name">.</span>   <span class="token builtin class-name">.</span>         <span class="token operator">|</span>
+<span class="token operator">|</span>+ <span class="token operator">=</span> <span class="token builtin class-name">.</span> <span class="token builtin class-name">.</span> <span class="token builtin class-name">.</span>        <span class="token operator">|</span>
+<span class="token operator">|</span>.<span class="token operator">=</span> o <span class="token builtin class-name">.</span> <span class="token builtin class-name">.</span> +       <span class="token operator">|</span>
+<span class="token operator">|</span>o.o + + S o      <span class="token operator">|</span>
+<span class="token operator">|</span>o. o + @ * +     <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token builtin class-name">.</span> o <span class="token builtin class-name">.</span> <span class="token punctuation">..</span>O <span class="token operator">=</span> <span class="token builtin class-name">.</span>    <span class="token operator">|</span>
+<span class="token operator">|</span> o. <span class="token builtin class-name">.</span> o+.<span class="token operator">=</span><span class="token punctuation">..</span>     <span class="token operator">|</span>
+<span class="token operator">|</span><span class="token punctuation">..</span> E  .o+oo.     <span class="token operator">|</span>
++----<span class="token punctuation">[</span>SHA256<span class="token punctuation">]</span>-----+
+
+abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token function">ls</span> -a .ssh
+./  <span class="token punctuation">..</span>/  id_rsa  id_rsa.pub
+
+<span class="token comment"># 生成公钥</span>
+abc@DESKTOP-R85C9HV MINGW64 ~
+$ <span class="token function">cat</span> .ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChXy8I20br9nu4GCNeZSDkozfHvlRFpXiImYnVlHVvyvFgjct1/zMeJgot1J6+yArSJbA4TMlS9nG8owCE6C9yqhPceDlKtQbARKS2pW7IyP5OhIbcqVmWmvvd+IMmsWrWgK9S6jqp0xSqv3Z3mlcHWOAK18oOe6wF6b3SyGgCP/EcwwUGX4NG7jukhK+In9joSuAxchEg/Ba2/LVjqtfBn3hXZx/SEt+rJ0UVPIT/eEe32HflrzokNcO7l0IgyLntv5QEAsSC2hiGxrM6vF5tQpb12MVZnt1/01ytP0ruQn2TVTI96vsOAa3Cj98dAH2Z0JdqZUSVBw+o3AqXP5oeF1JWkDHZzHQjLgu741wnUZn+vVXFBu1xQyApbvH7y7cNbq8PaxU+SyZbVXbq3RwTywJsyFQvsIOM5l0tG7jUD0QAd6dP3rcNODjFTaafJaBsR9aMwvKQd/d7H+BdwFPYOFp8HB2JAzhRpvlS4Av9MCIe0474wZ0T2QOJmcs7mns<span class="token operator">=</span> abc@123.com
+
+</code></pre>
+         <p>然后，将生成的公钥添加至Github账号SSH设置</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2d213036d44d57f07ad75b23d20871ea.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/0a6a75ce73adad73a535947dce7fa525.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/0c2f4dd9ef30bdc8c47ae59e50b8851b.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/1f54c4dccd3d8a17e909042c28181fb6.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/0ad893fd8447ac90ed0ee7ceafdf582e.png" alt=""></p>
+         <p>添加公钥后，可不用输入Github账号密码便可推送。</p>
+         <p>接下来通过SSH方式提交hello.txt。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/b2391f3377179188499d33c3ee517d53.png" alt=""></p>
+         <pre class="set-code-show"><code class="prism language-bash">abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>modify from Github editor
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">vim</span> hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">cat</span> hello.txt
+hello, git<span class="token operator">!</span>hot-fix
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>ssh <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>
+hello, git<span class="token operator">!</span>modify from Github editor
+hello, git<span class="token operator">!</span>hot-fix <span class="token builtin class-name">test</span>
+hello, git<span class="token operator">!</span>master <span class="token builtin class-name">test</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> status
+On branch master
+Your branch is up to <span class="token function">date</span> with <span class="token string">'origin/master'</span><span class="token builtin class-name">.</span>
+
+Changes to be committed:
+  <span class="token punctuation">(</span>use <span class="token string">"git restore --staged &lt;file&gt;..."</span> to unstage<span class="token punctuation">)</span>
+        modified:   hello.txt
+
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> commit -m <span class="token string">"ssh test"</span>
+<span class="token punctuation">[</span>master 9602a37<span class="token punctuation">]</span> <span class="token function">ssh</span> <span class="token builtin class-name">test</span>
+ <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">1</span> insertion<span class="token punctuation">(</span>+<span class="token punctuation">)</span>, <span class="token number">1</span> deletion<span class="token punctuation">(</span>-<span class="token punctuation">)</span>
+
+<span class="token comment"># 通过SSH推送</span>
+abc@DESKTOP-R85C9HV MINGW64 ~/Desktop/HelloGit-clone/HelloGit <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ <span class="token function">git</span> push git@github.com:abc/HelloGit.git master
+The authenticity of <span class="token function">host</span> <span class="token string">'github.com (13.250.177.223)'</span> can<span class="token string">'t be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '</span>github.com,13.250.177.223' <span class="token punctuation">(</span>RSA<span class="token punctuation">)</span> to the list of known hosts.
+Enumerating objects: <span class="token number">5</span>, done.
+Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">5</span>/5<span class="token punctuation">)</span>, done.
+Delta compression using up to <span class="token number">8</span> threads
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2</span>/2<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">3</span>/3<span class="token punctuation">)</span>, <span class="token number">283</span> bytes <span class="token operator">|</span> <span class="token number">283.00</span> KiB/s, done.
+Total <span class="token number">3</span> <span class="token punctuation">(</span>delta <span class="token number">1</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">1</span>/1<span class="token punctuation">)</span>, completed with <span class="token number">1</span> <span class="token builtin class-name">local</span> object.
+To github.com:JallenKwong/HelloGit.git
+   47e257f<span class="token punctuation">..</span>9602a37  master -<span class="token operator">&gt;</span> master
+
+</code></pre>
+         <p>推送成功。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/92d174f42df3162c15b5d2824dc06e28.png" alt=""></p>
+         <h3><a id="27_IDEAGit__1750"></a>27_IDEA集成Git_环境准备</h3>
+         <p>实操的IDEA版本为ultimate 2020.1。</p>
+         <h4><a id="_Git__1754"></a>配置 Git 忽略文件</h4>
+         <p>与项目的实际功能无关，不参与服务器上部署运行。把它们忽略掉能够屏蔽 IDE 工具之<br> 间的差异。例如，Maven工程根据src生成的target。</p>
+         <p>创建忽略规则文件 xxxx.ignore（前缀名随便起，建议是 git.ignore），这个文件的存放位置原则上在哪里都可以，为了便于让~/.gitconfig 文件引用，<strong>建议</strong>也放在用户家目录下。</p>
+         <p>git.ignore 文件模版内容如下：</p>
+         <pre class="set-code-show"><code># Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+.classpath
+.project
+.settings
+target
+.idea
+*.iml
+</code></pre>
+         <p>在.gitconfig 文件中引用忽略配置文件（此文件在 Windows 的家目录中）</p>
+         <pre class="set-code-show"><code>[user]
+    name = Layne
+    email = Layne@atguigu.com
+[core]
+	excludesfile = C:/Users/asus/git.ignore
+</code></pre>
+         <p>注意：这里要使用“正斜线（/）”，不要使用“反斜线（\）”</p>
+         <h4><a id="IDEAGit_1811"></a>在IDEA配置Git程序</h4>
+         <p>在菜单栏File-&gt;Setting-&gt;搜索栏搜Git，配置Git的安装路径。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/d86ae18c01b9a08bc73f02aa6c1b3708.png" alt=""></p>
+         <h3><a id="28_IDEAGit__1817"></a>28_IDEA集成Git_初始化&amp;添加&amp;提交</h3>
+         <p>先创建一个名叫HelloGit的Maven工程。</p>
+         <h4><a id="Git_1821"></a>初始化Git</h4>
+         <p>在菜单栏VCS -&gt; Import into Version Control -&gt; Create Git Repository</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/4bbfb1e76fb25655b3fe6900bb29ea47.png" alt=""></p>
+         <p>选择要创建 Git 本地仓库的工程，也就是HelloGit工程，然后添加OK。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/5dc609978787f3e5a83dbdf954a3e039.png" alt=""></p>
+         <h4><a id="_1833"></a>添加到暂存区</h4>
+         <p>创建一个HelloGit类，将其添加Git暂存区。</p>
+         <p>右键点击HelloGit类，选择Git-&gt;Add。可以右键点击HelloGit，更大范围地添加文件到暂存区。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/42d316f8c5058311afc83779b0c13551.png" alt=""></p>
+         <p>添加成功后，文件名会从红色变成绿色。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/ec95c2b0b99d1f3a0ac8ad3291fdde50.png" alt=""></p>
+         <h4><a id="_1847"></a>提交至本地库</h4>
+         <p>右键点击HelloGit，选择Git-&gt;Commit Directory。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/9a73d7bbac024bfe61951662f5bf6ded.png" alt=""></p>
+         <p>添加注释后提交：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/281c7f26319b59e7584103c2a3ee88dd.png" alt=""></p>
+         <p>添加成功后，后台打印相关信息。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3bdf7a9135d3ae80b9aad4d678626491.png" alt=""></p>
+         <h3><a id="29_IDEAGit__1865"></a>29_IDEA集成Git_切换版本</h3>
+         <p>在 IDEA 的左下角，点击 Git，然后点击 Log 查看版本</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/69e6670ea5681781c173f1c86864ae1e.png" alt=""></p>
+         <p>右键选择要切换的版本，然后在菜单里点击 Checkout Revision。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/5530ac3d829954cebd23ed15a681769f.png" alt=""></p>
+         <h3><a id="30_IDEAGit__1877"></a>30_IDEA集成Git_创建分支&amp;切换分支</h3>
+         <h4><a id="_1879"></a>创建分支</h4>
+         <p>右键点击HelloGit，Git -&gt; Repository -&gt; Branches，或者点击IDEA的右下角，如图红圈所示部位：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3e31e84cd2f7b5b95bb2639abcb1804f.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c7544c1bade118b3177907ad903a8082.png" alt=""></p>
+         <p>选择点击New Branch：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/b9c18ec9924788adfa432b7b924308ce.png" alt=""></p>
+         <p>创建新分支：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/8a4a5e7cf7511d086ddac0be704e850f.png" alt=""></p>
+         <h4><a id="_1897"></a>切换分支</h4>
+         <p>跟<strong>创建分支</strong>步骤相似，如点击IDEA的右下角（它显示项目正处在那条分支），如图红圈所示部位，选择你想要切换的分支，然后checkout：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c7544c1bade118b3177907ad903a8082.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/afbbe9a835629f522d0b02024fe2c11b.png" alt=""></p>
+         <p>或者在log窗口，右键点击分支，选择checkout：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/7ab6ab48e9b5a42009757b8b17b901f0.png" alt=""></p>
+         <h3><a id="31_IDEAGit__1909"></a>31_IDEA集成Git_合并分支(正常合并)</h3>
+         <p>先在hot-fix分支修改HelloGit类，并将其提交：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/41667203b7e067b59d1310cce4d92b15.png" alt=""></p>
+         <p>然后切换到master分支，右下角的hot-fix会变为master：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f183b86164b0e00e9d6e8c8c9a4a17da.png" alt=""></p>
+         <p>然后，点击IDEA 窗口的右下角的master，将 hot-fix 分支合并到当前 master 分支。选择hot-fix-&gt;Merge into Current</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/fff1d4e014223aa2cc70f0fdc237f350.png" alt=""></p>
+         <p>如果代码没有冲突， 分支直接合并成功，分支合并成功以后，代码自动提交，无需手动<br> 提交本地库。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/271421c28750e86e69accd6ac687490c.png" alt=""></p>
+         <h3><a id="32_IDEAGit__1928"></a>32_IDEA集成Git_合并分支(冲突合并)</h3>
+         <p>分别在master，hot-fix分支修改HelloGit类同一行，并提交，故意制作冲突：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/53daad680bc796069dc1ce61682d4abc.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f8fcf275169cdec742d31ce85ce20d7f.png" alt=""></p>
+         <p>切换到master分支，将hot-fix的合并到master分支：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/fff1d4e014223aa2cc70f0fdc237f350.png" alt=""></p>
+         <p>冲突产生，需要人工解决：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/eb3804e00dccfa2658aa33c972d8996e.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/a73d642f285f171eeff7ae0c9bb6111b.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/eafebea94008b4f1f0ae15f8b2092919.png" alt=""></p>
+         <p>代码冲突解决，将代码提交本地库后，如图所示：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/15a9058f7f35112b8605cd69aaf42e35.png" alt=""></p>
+         <h3><a id="33_IDEAGitHub_GitHub_1958"></a>33_IDEA集成GitHub_设置GitHub账号</h3>
+         <p>在菜单栏File-&gt;Setting-&gt;搜索栏搜GitHub，添加GitHub账号：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/00572764f1ed257dbc2d0f668434e6a0.png" alt=""></p>
+         <p>由于网络问题，会时常登陆不了：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3084475acd640b1adf621688462a1504.png" alt=""></p>
+         <p>解决方法：可通过Token登陆。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f3a64a809fa56624a997073836139140.png" alt=""></p>
+         <p>登陆Github网站，<strong>获取Token</strong>，操作步骤看下图：</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2d213036d44d57f07ad75b23d20871ea.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/9b2489e068b004bee03a227760248edb.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/200c556f6f0b6d44c442b58d6e8bb7ea.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/81a82fb47421c0a802cd1cfad7297e43.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3f596f2f68d50d277eefe1a4e6035d2d.png" alt=""></p>
+         <p>将生成的token用来IDEA登录。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/704eafd9157658a0be35b081c3530ced.png" alt=""></p>
+         <h3><a id="34_IDEAGitHub_GitHub_1996"></a>34_IDEA集成GitHub_分享项目到GitHub</h3>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/e057d2e660c2033ef9eae0c638aee2bc.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/a5ba3e09a890113b94420c3939dac239.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/44b2419dd2eebc2c053fb642188e8909.png" alt=""></p>
+         <h3><a id="35_IDEAGitHub__2004"></a>35_IDEA集成GitHub_推送代码到远程库</h3>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/84baeaa175c6faa3ff538e0313187eff.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/1ee51e1ed781404a93655f1ad10bd9ca.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/bb9689e1fc2e1167e68ef39f73f28af7.png" alt=""></p>
+         <p>注意： push 是将本地库代码推送到远程库，如果本地库代码跟远程库代码版本不一致，<br> push 的操作是会被拒绝的。也就是说， 要想 push 成功，一定要保证本地库的版本要比远程库的版本高！ <strong>因此一个成熟的程序员在动手改本地代码之前，一定会先检查下远程库跟本地代码的区别！如果本地的代码版本已经落后，切记要先 pull 拉取一下远程库的代码，将本地代码更新到最新以后，然后再修改，提交，推送！</strong></p>
+         <h3><a id="36_IDEAGitHub__2015"></a>36_IDEA集成GitHub_拉取远程库代码合并本地库</h3>
+         <p>右键点击项目，可以将远程仓库的内容 pull 到本地仓库。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/193d00830bc1636e2ae2640b749b9899.png" alt=""></p>
+         <p>注意： pull 是拉取远端仓库代码到本地，如果远程库代码和本地库代码不一致，会自动<br> 合并，如果自动合并失败，还会涉及到手动解决冲突的问题。</p>
+         <h3><a id="37_IDEAGitHub__2024"></a>37_IDEA集成GitHub_克隆代码到本地</h3>
+         <p>在菜单栏的File-&gt;Close Project-&gt;Get from Version Control。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f436b8f9156e5e5ce8c0e2b3b5fe3639.png" alt=""></p>
+         <p>或者在菜单栏VCS-&gt;Get from Version Control。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/63f9691dd0a7627bd44a125942be7f31.png" alt=""></p>
+         <h2><a id="Gitee_2035"></a>Gitee</h2>
+         <h3><a id="38___2036"></a>38_码云_账号注册登录&amp;创建远程库</h3>
+         <h4><a id="_2038"></a>码云简介</h4>
+         <p>众所周知， GitHub 服务器在国外， 使用 GitHub 作为项目托管网站，如果网速不好的话，严重影响使用体验，甚至会出现登录不上的情况。针对这个情况， 大家也可以使用国内的项目托管网站-码云。</p>
+         <p>码云是开源中国推出的基于 Git 的代码托管服务中心， 网址是 https://gitee.com/ ，使用<br> 方式跟 GitHub 一样，而且它还是一个中文网站，如果你英文不是很好，它是最好的选择。</p>
+         <h4><a id="_2045"></a>账号注册登录</h4>
+         <p>略</p>
+         <h4><a id="_2049"></a>创建远程库</h4>
+         <p>跟Github的类似。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c8c01b7813e8578423ee2d790a580ee4.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/16341a72fa521e904f7b5a5489d4c693.png" alt=""></p>
+         <p>另外，可以从GitHub与GitLab中导入仓库。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/c5daf945afdd2f2836c1e9e20e8e389b.png" alt=""></p>
+         <h3><a id="39__IDEAGitee_2061"></a>39_码云_IDEA集成Gitee码云</h3>
+         <p>首先，要在IDEA安装Gitee插件。</p>
+         <p>在菜单栏选File-&gt;Settings-&gt;Plugins，搜Gitee。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/0241b8536ebed6fb08dcf04804c62cb0.png" alt=""></p>
+         <p>安装插件成功后，重启IDEA。</p>
+         <p>功能跟在IDEA的Github插件，功能类似，如添加Gitee账号等，可参考前文IDEA的Github插件，触类旁通。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/87e35b8ee0fd1fd4136f2b2727cbf02a.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/89e7174170b4ecc1c4ba896e3f1c9ad9.png" alt=""></p>
+         <h3><a id="40__GitHub_2077"></a>40_码云_导入GitHub项目</h3>
+         <p>略</p>
+         <h2><a id="GitLab_2081"></a>GitLab</h2>
+         <h3><a id="41_GitLab__2083"></a>41_GitLab_简介和安装环境准备</h3>
+         <h4><a id="GitLab_2085"></a>GitLab简介</h4>
+         <p>GitLab 是由 GitLab Inc.开发，使用 MIT 许可证的基于网络的 Git 仓库管理工具，且具有wiki 和 issue 跟踪功能。使用 Git 作为代码管理工具，并在此基础上搭建起来的 web 服务。（可搭建局域网Git仓库）。</p>
+         <p>GitLab 由乌克兰程序员 DmitriyZaporozhets 和 ValerySizov 开发，它使用 Ruby 语言写成。后来，一些部分用 Go 语言重写。截止 2018 年 5 月，该公司约有 290 名团队成员，以及 2000 多名开源贡献者。 GitLab 被 IBM， Sony， JülichResearchCenter， NASA， Alibaba，Invincea， O’ReillyMedia， Leibniz-Rechenzentrum(LRZ)， CERN， SpaceX 等组织使用。</p>
+         <h4><a id="GitLab_2091"></a>GitLab官网地址</h4>
+         <p><a href="https://about.gitlab.com/" rel="nofollow">官网地址</a></p>
+         <p><a href="https://about.gitlab.com/installation/" rel="nofollow">安装说明</a></p>
+         <h4><a id="GitLab_2097"></a>GitLab安装准备</h4>
+         <ol>
+          <li>准备一个系统为 CentOS7 以上版本的服务器， 要求内存 4G，磁盘 50G。</li><li>关闭防火墙， 并且配置好主机名和 IP，保证服务器可以上网。</li><li>此教程使用虚拟机：主机名： gitlab-server IP 地址： 192.168.6.200</li><li>Yum 在线安装 gitlab- ce 时，需要下载几百 M 的安装文件，非常耗时，所以最好提前把所需 RPM 包下载到本地，然后使用离线 rpm 的方式安装。<a href="https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-13.10.2-ce.0.el7.x86_64.rpm" rel="nofollow">下载地址</a>。注：资料里提供了此 rpm 包，直接将此包上传到服务器/opt/module 目录下即可。</li>
+         </ol>
+         <h3><a id="42_GitLab__2106"></a>42_GitLab_安装&amp;初始化服务&amp;启动服务</h3>
+         <h4><a id="_2108"></a>编写安装脚本</h4>
+         <p>安装 gitlab 步骤比较繁琐，因此我们可以参考<a href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh" rel="nofollow">官网编写 gitlab 的安装脚本</a>。</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token punctuation">[</span>root@gitlab-server module<span class="token punctuation">]</span><span class="token comment"># vim gitlab-install.sh</span>
+<span class="token function">sudo</span> <span class="token function">rpm</span> -ivh /opt/module/gitlab-ce-13.10.2-ce.0.el7.x86_64.rpm
+
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y <span class="token function">curl</span> policycoreutils-python openssh-server cronie
+
+<span class="token function">sudo</span> lokkit -s http -s <span class="token function">ssh</span>
+
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y postfix
+
+<span class="token function">sudo</span> <span class="token function">service</span> postfix start
+
+<span class="token function">sudo</span> <span class="token function">chkconfig</span> postfix on
+
+<span class="token function">curl</span> https://packages.gitlab.com/install/repositories/gitlab/gitlabce/script.rpm.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span>
+
+<span class="token function">sudo</span> <span class="token assign-left variable">EXTERNAL_URL</span><span class="token operator">=</span><span class="token string">"http://gitlab.example.com"</span> yum -y <span class="token function">install</span> gitlabce
+</code></pre>
+         <p>给脚本增加执行权限</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token punctuation">[</span>root@gitlab-server module<span class="token punctuation">]</span><span class="token comment"># chmod +x gitlab-install.sh</span>
+<span class="token punctuation">[</span>root@gitlab-server module<span class="token punctuation">]</span><span class="token comment"># ll</span>
+总用量 <span class="token number">403104</span>
+-rw-r--r--. <span class="token number">1</span> root root <span class="token number">412774002</span> <span class="token number">4</span> 月 <span class="token number">7</span> <span class="token number">15</span>:47 gitlab-ce-13.10.2-
+ce.0.el7.x86_64.rpm
+-rwxr-xr-x. <span class="token number">1</span> root root <span class="token number">416</span> <span class="token number">4</span> 月 <span class="token number">7</span> <span class="token number">15</span>:49 gitlab-install.sh
+</code></pre>
+         <p>然后执行该脚本，开始安装 gitlab-ce。注意一定要保证服务器可以上网。</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token punctuation">[</span>root@gitlab-server module<span class="token punctuation">]</span><span class="token comment"># ./gitlab-install.sh</span>
+警告： /opt/module/gitlab-ce-13.10.2-ce.0.el7.x86_64.rpm: 头 V4
+RSA/SHA1 Signature, 密钥 ID f27eab47: NOKEY
+准备中<span class="token punctuation">..</span>. <span class="token comment">#################################</span>
+<span class="token punctuation">[</span><span class="token number">100</span>%<span class="token punctuation">]</span>
+正在升级/安装<span class="token punctuation">..</span>.
+<span class="token number">1</span>:gitlab-ce-13.10.2-ce.0.el7
+<span class="token comment">################################# [100%]</span>
+。 。 。 。 。 。
+</code></pre>
+         <h4><a id="GitLab_2162"></a>初始化GitLab服务</h4>
+         <p>执行以下命令初始化 GitLab 服务，过程大概需要几分钟，耐心等待…</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token punctuation">[</span>root@gitlab-server module<span class="token punctuation">]</span><span class="token comment"># gitlab-ctl reconfigure</span>
+。 。 。 。 。 。
+Running handlers:
+Running handlers complete
+Chef Client finished, <span class="token number">425</span>/608 resources updated <span class="token keyword">in</span> 03 minutes 08
+seconds
+gitlab Reconfigured<span class="token operator">!</span>
+</code></pre>
+         <h4><a id="GitLab_2178"></a>启动GitLab服务</h4>
+         <p>执行以下命令启动 GitLab 服务，如需停止，执行 gitlab-ctl stop</p>
+         <pre class="set-code-show"><code class="prism language-bash"><span class="token punctuation">[</span>root@gitlab-server module<span class="token punctuation">]</span><span class="token comment"># gitlab-ctl start</span>
+ok: run: alertmanager: <span class="token punctuation">(</span>pid <span class="token number">6812</span><span class="token punctuation">)</span> 134s
+ok: run: gitaly: <span class="token punctuation">(</span>pid <span class="token number">6740</span><span class="token punctuation">)</span> 135s
+ok: run: gitlab-monitor: <span class="token punctuation">(</span>pid <span class="token number">6765</span><span class="token punctuation">)</span> 135s
+ok: run: gitlab-workhorse: <span class="token punctuation">(</span>pid <span class="token number">6722</span><span class="token punctuation">)</span> 136s
+ok: run: logrotate: <span class="token punctuation">(</span>pid <span class="token number">5994</span><span class="token punctuation">)</span> 197s
+ok: run: nginx: <span class="token punctuation">(</span>pid <span class="token number">5930</span><span class="token punctuation">)</span> 203s
+ok: run: node-exporter: <span class="token punctuation">(</span>pid <span class="token number">6234</span><span class="token punctuation">)</span> 185s
+ok: run: postgres-exporter: <span class="token punctuation">(</span>pid <span class="token number">6834</span><span class="token punctuation">)</span> 133s
+ok: run: postgresql: <span class="token punctuation">(</span>pid <span class="token number">5456</span><span class="token punctuation">)</span> 257s
+ok: run: prometheus: <span class="token punctuation">(</span>pid <span class="token number">6777</span><span class="token punctuation">)</span> 134s
+ok: run: redis: <span class="token punctuation">(</span>pid <span class="token number">5327</span><span class="token punctuation">)</span> 263s
+ok: run: redis-exporter: <span class="token punctuation">(</span>pid <span class="token number">6391</span><span class="token punctuation">)</span> 173s
+ok: run: sidekiq: <span class="token punctuation">(</span>pid <span class="token number">5797</span><span class="token punctuation">)</span> 215s
+ok: run: unicorn: <span class="token punctuation">(</span>pid <span class="token number">5728</span><span class="token punctuation">)</span> 221s
+</code></pre>
+         <h3><a id="43_GitLab_GitLab_2200"></a>43_GitLab_登录GitLab并创建远程库</h3>
+         <h4><a id="GitLab_2202"></a>登录GitLab</h4>
+         <p>使用主机名或者 IP 地址即可访问 GitLab 服务。可配一下 windows 的 hosts 文件（C:\Windows\System32\drivers\etc）。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/048956890f1e644fb77e8d58092a8b6d.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/1870c658dcabcf08fbc3b5b9fa6b2243.png" alt=""></p>
+         <p>首次登陆之前，需要修改下 GitLab 提供的 root 账户的密码，要求 8 位以上，包含大小写子母和特殊符号。</p>
+         <p>然后使用修改后的密码登录 GitLab。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/5608650ec5e913d5ab549f30fbb477d3.png" alt=""></p>
+         <p>GitLab 登录成功。</p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/3231f6dd1a07f90326ec0506eaae747f.png" alt=""></p>
+         <h4><a id="_2220"></a>创建远程库</h4>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/2ab639dfaa57cd499133c2c4cde1222a.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/f135a7b76c745c3aeef9034a82c8afaf.png" alt=""></p>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/5ff82d173fe047244945c8cd255a4b33.png" alt=""></p>
+         <h3><a id="44_GitLab_IDEAGitLab_2228"></a>44_GitLab_IDEA集成GitLab</h3>
+         <p><img src="http://toolman.ddnsfree.com:8585/csdnimg/img-blog/img_convert/1f34175126922c56c158f466dd4d665c.png" alt=""></p>
+         <p>接下来插件配置，Git操作等与Github、Gitee的IDEA插件大同小异，不再赘述，自己触类旁通吧！</p>
+         <h3><a id="45__2234"></a>45_课程总结</h3>
+         <p>略</p></div>
+        <link href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/editerView/markdown_views-f23dff6052.css" rel="stylesheet">
+        <link href="http://toolman.ddnsfree.com:8585/csdnimg/release/blogv2/dist/mdeditor/css/style-c216769e99.css" rel="stylesheet"></div>
+      </article></div>
+    </main></div><div class="recommend-right align-items-stretch clearfix" id="rightAside" data-type="recommend"></div></div>
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/g/lib/cboxEditor/1.1.2/embed-editor.min.css">
+  <link rel="stylesheet" href="http://toolman.ddnsfree.com:8585/csdnimg/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/dracula.css">
+ </body>
+</html>
